@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+import random
 from sys import path
+
+import numpy as np
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot
 
 from ui.mainWin import Ui_MainWin
 
@@ -12,8 +14,23 @@ class MainWindow(Ui_MainWin):
     def __init__(self):
         super(MainWindow, self).__init__()
 
+
     def calculateButtonClicked(self):
-        print("Clicked")
+            # print("something")
+            fs = 500
+            f = random.randint(1, 100)
+            ts = 1 / fs
+            length_of_signal = 100
+            t = np.linspace(0, 1, length_of_signal)
+            cosinus_signal = np.cos(2 * np.pi * f * t)
+            sinus_signal = np.sin(2 * np.pi * f * t)
+
+            self.plotWidget.canvas.axes.clear()
+            self.plotWidget.canvas.axes.plot(t, cosinus_signal)
+            self.plotWidget.canvas.axes.plot(t, sinus_signal)
+            self.plotWidget.canvas.axes.legend(('cosinus', 'sinus'), loc='upper right')
+            self.plotWidget.canvas.axes.set_title('Cosinus - Sinus Signal')
+            self.plotWidget.canvas.draw()
 
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
