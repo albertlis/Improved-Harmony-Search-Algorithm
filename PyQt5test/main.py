@@ -1,12 +1,10 @@
 #!/usr/bin/python3
 import random
 from sys import path
-
+from matplotlib.backends.backend_qt5agg import (NavigationToolbar2QT as NavigationToolbar)
 import numpy as np
 from PyQt5 import QtWidgets
-
 from ui.mainWin import Ui_MainWin
-
 path.append('/ui')
 
 

@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2415b6a3-fb18-4927-b84c-8a4be91f9231" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PlotWidget.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PlotWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlotWidget.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/mainWin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/mainWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWindow.ui" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -108,6 +106,14 @@
       <option name="presentableId" value="Default" />
       <updated>1585061165965</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add plot to Qt">
+      <created>1585090471193</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585090471193</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -120,5 +126,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add plot to Qt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add plot to Qt" />
   </component>
 </project>
