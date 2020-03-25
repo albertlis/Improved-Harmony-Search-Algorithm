@@ -96,11 +96,13 @@ class Ui_MainWin(object):
         self.label.setText(_translate("MainWin", "f(x)"))
         self.label_3.setText(_translate("MainWin", "Ilość iteracji:"))
         self.calculateButton.setText(_translate("MainWin", "Oblicz"))
-from PlotWidget import PlotWidget
 
+
+from PlotWidget import PlotWidget
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWin = QtWidgets.QMainWindow()
     ui = Ui_MainWin()
