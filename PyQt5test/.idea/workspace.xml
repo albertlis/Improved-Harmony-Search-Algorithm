@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2415b6a3-fb18-4927-b84c-8a4be91f9231" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlotWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlotWidget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/mainWin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWin.py" afterDir="false" />
-    </list>
+    <list default="true" id="2415b6a3-fb18-4927-b84c-8a4be91f9231" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585091366997</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Change to 3D plot">
+      <created>1585152123054</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1585152123054</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,7 +142,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add plot to Qt" />
     <MESSAGE value="Add toolbar for plot Widget" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add toolbar for plot Widget" />
+    <MESSAGE value="Change to 3D plot" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change to 3D plot" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
