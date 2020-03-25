@@ -27,9 +27,6 @@ class MainWindow(Ui_MainWin):
 
             self.plotWidget.canvas.axes.clear()
             self.plotWidget.canvas.axes.plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=1, antialiased=False)
-            # self.plotWidget.canvas.axes.set_zlim(-2.01, 2.01)
-            # self.plotWidget.canvas.axes.zaxis.set_major_locator(LinearLocator(10))
-            # self.plotWidget.canvas.axes.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
             self.plotWidget.canvas.draw()
 
     def setupUi(self, mainWindow):
@@ -39,6 +36,8 @@ class MainWindow(Ui_MainWin):
 import sys
 
 app = QtWidgets.QApplication(sys.argv)
+with open("style.css", "r") as style:
+    app.setStyleSheet(style.read())
 mainWindow = QtWidgets.QMainWindow()
 ui = MainWindow()
 ui.setupUi(mainWindow)
