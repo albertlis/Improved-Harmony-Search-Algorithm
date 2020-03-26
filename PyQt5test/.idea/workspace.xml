@@ -4,8 +4,6 @@
     <list default="true" id="2415b6a3-fb18-4927-b84c-8a4be91f9231" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hs.py" beforeDir="false" afterPath="$PROJECT_DIR$/hs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plotwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/plotwidget.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +162,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585252326472</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add better random generator for HM">
+      <created>1585253242667</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1585253242667</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add better default values">
+      <created>1585253437039</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1585253437039</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +198,8 @@
     <MESSAGE value="Change to 3D plot" />
     <MESSAGE value="Add style.css" />
     <MESSAGE value="Add new boxes to GUI, add working parameters reading, add working memory allocation, move mainwindow to own file, move plot into plotwidget method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add new boxes to GUI, add working parameters reading, add working memory allocation, move mainwindow to own file, move plot into plotwidget method" />
+    <MESSAGE value="add better random generator for HM" />
+    <MESSAGE value="add better default values" />
+    <option name="LAST_COMMIT_MESSAGE" value="add better default values" />
   </component>
 </project>
