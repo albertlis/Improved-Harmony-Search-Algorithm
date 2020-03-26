@@ -47,7 +47,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.hs">
+  <component name="RunManager" selected="Python.main">
     <configuration name="hs" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="PyQt5test" />
       <option name="INTERPRETER_OPTIONS" value="" />
