@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2415b6a3-fb18-4927-b84c-8a4be91f9231" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mainwindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlotWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlotWidget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PlotWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/plotwidget.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/mainWin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/mainWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWindow.ui" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +52,27 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="hs" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PyQt5test" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hs.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="PyQt5test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -92,6 +117,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.hs" />
         <item itemvalue="Python.mainWindow" />
       </list>
     </recent_temporary>
@@ -128,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585152123054</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add style.css">
+      <created>1585172192770</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585172192770</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -148,17 +181,7 @@
     <MESSAGE value="Add plot to Qt" />
     <MESSAGE value="Add toolbar for plot Widget" />
     <MESSAGE value="Change to 3D plot" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change to 3D plot" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Add style.css" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add style.css" />
   </component>
 </project>
