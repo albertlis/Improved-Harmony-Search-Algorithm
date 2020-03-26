@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import random
 from sys import path
 from PyQt5 import QtWidgets
 import sys

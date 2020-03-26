@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import *
+from matplotlib import cm
 from matplotlib.backends.backend_qt5agg import FigureCanvas
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -28,6 +29,6 @@ class PlotWidget(QWidget):
         Z = (Z1 - Z2) * 2
 
         self.canvas.axes.clear()
-        CS = self.canvas.axes.contour(X, Y, Z)
+        CS = self.canvas.axes.contour(X, Y, Z, origin='lower',)
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
         self.canvas.draw()

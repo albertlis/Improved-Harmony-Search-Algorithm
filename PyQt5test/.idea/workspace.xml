@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2415b6a3-fb18-4927-b84c-8a4be91f9231" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/hs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mainwindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlotWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/plotwidget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs.py" beforeDir="false" afterPath="$PROJECT_DIR$/hs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/mainWin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/mainWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWindow.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plotwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/plotwidget.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +47,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.hs">
     <configuration name="hs" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="PyQt5test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -161,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585172192770</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add new boxes to GUI, add working parameters reading, add working memory allocation, move mainwindow to own file, move plot into plotwidget method">
+      <created>1585252326472</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1585252326472</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,6 +185,7 @@
     <MESSAGE value="Add toolbar for plot Widget" />
     <MESSAGE value="Change to 3D plot" />
     <MESSAGE value="Add style.css" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add style.css" />
+    <MESSAGE value="Add new boxes to GUI, add working parameters reading, add working memory allocation, move mainwindow to own file, move plot into plotwidget method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add new boxes to GUI, add working parameters reading, add working memory allocation, move mainwindow to own file, move plot into plotwidget method" />
   </component>
 </project>
