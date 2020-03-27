@@ -14,13 +14,16 @@ class MainWindow(Ui_MainWin):
         iterations = self.iterationsBox.value()
         hms = self.hmsBox.value()
         hmcr = self.hcmrBox.value()
-        par = self.parBox.value()
-        b = self.bBox.value()
-        return fun, iterations, hms, hmcr, par, b
+        parMin = self.parMinBox.value()
+        parMax = self.parMaxBox.value()
+        bandwidthMin = self.bandwidthMinBox.value()
+        bandwidthMax = self.bandwidthMaxBox.value()
+        return fun, iterations, hms, hmcr, parMin, parMax, bandwidthMin, bandwidthMax
 
     def calculateButtonClicked(self):
         self.makePlot()
         hs = HS(self.readParameters())
+        print(hs)
 
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
