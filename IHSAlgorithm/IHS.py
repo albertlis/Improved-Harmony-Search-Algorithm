@@ -21,70 +21,117 @@ raczej trzeba będzie to robić przez ParentClass.<element ParentClass>...
 '''
 
 import copy
-from VariablesParser import *
 from random import uniform 
-
+from VariablesParser import *
 
 class IHSAlgorithm:
     def __init__(self):
-        self.__HM = []          #Harmony Memory
-        self.__HMS = 4          #Harmony Memory Size
-        self.__HMCRmax = 0.9    #Harmony Memory Considering Rate
-        self.__HMCRmin = 0.1
-        self.__PARmax = 1       #Pitch Adjusting Rate
-        self.__PARmin = 0.1
-        self.__BWmax = 1        #Band Width
-        self.__BWmin = 0.1
-        self.__Tmax = 10        #Max Iteration Times
-        self.__upperBound = 10000
-        self.__lowerBound = -10000
-        self.__variables = ['x1', 'x2', 'x3']
-        self.__isContinuous = True
-        self.__generation = 0
+        self._HM = []          #Harmony Memory
+        self._HMS = 4          #Harmony Memory Size
+        self._HMCRmax = 0.9    #Harmony Memory Considering Rate
+        self._HMCRmin = 0.1
+        self._PARmax = 1       #Pitch Adjusting Rate
+        self._PARmin = 0.1
+        self._BWmax = 10        #Band Width
+        self._BWmin = 0
+        self._Tmax = 10        #Max Iteration Times
+        self._variables = []
+        self._varUpperBounds = []
+        self._varLowerBounds = []
+        self._f = []
+        self._isContinuous = True
+        self._generation = 0
+        self._objective_function = lambda X: sum(X)
+        self.compute = lambda X: self._objective_function(X)
         
-    
+        
+   
+            
+            
     def initializeHM(self):
-        for var in self.__variables:
-            for i in range(self.__HMS):
-                self.__HM[var].append( uniform(self.__lowerBound, self.__upperBound))
+        self._HM = []
+        for i in range(self._HMS):
+            X = {}
+            for var in range(len(self._variables)):
+                X.update({self._variables[var]:
+                          uniform(self._varLowerBounds[var], 
+                                  self._varUpperBounds[var]
+                                  )
+                          })
+            self._HM.append(X)
+            self._f.append(self.compute(self, X))
                 
-                
-    def generateNewVectors(self):       
-        for x in range(len(self.__HM)):
-            self.__HM[x] = self.__considerateMemory(self.__HM[x])
-            self.__HM[x] = self.__adjustPitch(self.__HM[x])
+    
+    
+    def dodo(self):
+        exec(
+            'self._objective_function = lambda ' + 'x' + ': ' + 'x + 1'
+            )
+        exec(
+            "self.compute = lambda self, X: self._HMS + X['x']"
+            )
+        ddd = {'x': 1.5}
+        self._f.append(self.compute(self, ddd))
             
         
-    def __considerateMemory(self, newX):
-        for i in range(len(newX)):
-            if uniform(0, 1) >= self.__getHMCR(): #gdzies trzeba dac dziedzine X
-                newX[i] = uniform(self.__lowerBound, self.__upperBound)
-        return newX
+    def improvise(self, curr):
+        new = {}
+        for i in range(len(self._variables)):
+            if uniform(0, 1) < self._getHMCR():
+                D1 = int(uniform(0, 1) * self._HMS)
+                D2 = self._HM[D1].get(self._variables[i])
+                new.update({self._variables[i]: D2})
                 
-                
-    def __adjustPitch(self, newX):
-        for i in range(len(newX)):
-            random = uniform(-1, 1)
-            if abs(random) < self.__getPAR():
-                if self.__isContinuous:
-                    newX[i] = newX[i] + random * self.__getBW()
-                else:
-                    pass #to w sumie nie bedzie uzywane
+                if uniform(0, 1) < self._getPAR():
+                    if uniform(0, 1) < 0.5:
+                        D3 = (new.get(self._variables[i]) - 
+                              uniform(0, 1) * self._getBW()
+                              )
+                        if self._varLowerBounds[i] <= D3:
+                            new.update({self._variables[i]: D3})
+                    else:
+                        D3 = (new.get(self._variables[i]) + 
+                              uniform(0, 1) * self._getBW()
+                              )
+                        if self._varUpperBounds[i] >= D3:
+                            new.update({self._variables[i]: D3})
+                    
             else:
-                pass #tu co ma byc ????????????????????????????????????????
-        return newX
-          
+                new.update({self._variables[i]:
+                            uniform(self._varLowerBounds[i],
+                              self._varUpperBounds[i]
+                              )})
+        
+        return new
+            
+            
+    def updateHM(self, curr, new):
+        f = self.compute(self, new)
+        #for finding minimum
+        if f < max(self._f):
+            for i in range(len(self._f)):
+                if max(self._f) == self._f[i]:
+                    self._f[i] = f
+                    self._HM[i] = new
+                    
+            
+    def doYourTask(self):
+        while self._generation < self._Tmax:
+            self._generation += 1
+            new = self.improvise((self._generation - 1)%self._HMS)
+            self.updateHM((self._generation - 1)%self._HMS, new)
+            
      
-    def __getHMCR(self):
-        return (self.__HMCRmax - self.__generation * 
-                (self.__HMCRmax - self.__HMCRmin) / self.__Tmax)
+    def _getHMCR(self):
+        return (self._HMCRmax - self._generation * 
+                (self._HMCRmax - self._HMCRmin) / self._Tmax)
         
         
-    def __getPAR(self):
-        return (((self.__PARmax - self.__PARmin) / (pi / 2)) *
-                atan(self.__generation) + self.__PARmin)
+    def _getPAR(self):
+        return (self._PARmin + self._generation *
+                (self._PARmax - self._PARmin) / len(self._variables))
         
         
-    def __getBW(self):
-        return (self.__BWmax - self.__generation * 
-                (self.__BWmax - self.__BWmin) / self.__Tmax)
+    def _getBW(self):
+        c = log(self._BWmin / self._BWmax)
+        return self._BWmax * exp(self._generation * c)

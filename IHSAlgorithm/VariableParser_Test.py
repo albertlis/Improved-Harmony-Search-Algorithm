@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 """
 Created on Fri Mar 27 16:05:41 2020
 
@@ -40,5 +40,5 @@ print(evaluate("(1 - 1 + -1) * pi"))
 print(evaluate("pi * e"))
 print(evaluate("sin(pi/3)^3+2/log(21*e, 10)"))
 print(evaluate("s(pi)"))
-print(evaluate("sin(pi^x1)"))
+print(evaluate("sin(pi^x1*x1)"))
 print(evaluate("sin(pow(pi, x1))"))
