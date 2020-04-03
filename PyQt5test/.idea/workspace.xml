@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2415b6a3-fb18-4927-b84c-8a4be91f9231" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Algorytm  Harmony Search_Kowal.doc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Harmony search Optimization Geem.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Improved Geem HS.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs.py" beforeDir="false" afterPath="$PROJECT_DIR$/hs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainwindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainwindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/mainWin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/mainWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/ui/mainWindow.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Wymagania metoda IHS.docx" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,7 +27,7 @@
   <component name="ProjectId" id="1ZZyyXP8in97LKMzkWu9mY6TCs4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../IHSAlgorithm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
