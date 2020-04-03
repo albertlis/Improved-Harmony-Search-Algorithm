@@ -186,7 +186,7 @@ class VariablesParser:
                 break
         
         value = self.__constants.get(var, None)
-        if value == None:  
+        if value == None and var not in self.__variables:  
             self.__variables.append(var)
             self.__wrongExp = var
             

@@ -23,103 +23,133 @@ do wyrażenia lambda)
 '''
 
 
-from IHS import IHSAlgorithm
+from IHS import *
+
 
 class I_IHSAlgorithm(IHSAlgorithm):
-    def __init__(self):
+    def __init__(self, HMS, HMCR, PAR, BW, Tmax, function):
         IHSAlgorithm.__init__(self)
+        self.setHMCR(HMCR)
+        self.setPAR(PAR)
+        self.setBW(BW)
+        self.setHMS(HMS)
+        self.setTmax(Tmax)
+        self.setVariables(function)
+        self._setDefaultBounds()
+        self.setFunction(function)
+        self.initializeHM()
     
     # W setterach poustawiać granice w jakich mogą się znaleźć dane parametry
-    def setHMS(self, HMS):
-        if HMS >= 0:
-            self.__HMS = HMS
-        else:
-            raise Exception("HMS should be bigger than 0")
-            
-            
-    def setHMCR(self, minimum, maximum): #tu jeszcze pytanie o granice 
-        HMCRmin = 0
-        HMCRmax = 1
-        if minimum >= HMCRmin and maximum <= HMCRmax and minimum <= maximum:
-            self.__HMCRmax = maximum
-            self.__HMCRmin = minimum
-        else:
-            if(minimum <= maximum):
-                raise Exception("PAR should be in [" + str(HMCRmin) + "; "
-                                + str(HMCRmax) + "] range")
-            else:
-                raise Exception("'min' should be less than 'max'")
-                
-                
-    def setBW(self, minimum, maximum): #tu jeszcze pytanie o granice 
-        BWmin = 0
-        BWmax = 1
-        if minimum >= BWmin and maximum <= BWmax and minimum <= maximum:
-            self.__BWmax = maximum
-            self.__BWmin = minimum
-        else:
-            if(minimum <= maximum):
-                raise Exception("PAR should be in [" + str(BWmin) + "; "
-                                + str(BWmax) + "] range")
-            else:
-                raise Exception("'min' should be less than 'max'")
-            
-    
-    def setPAR(self, minimum, maximum): #tu jeszcze pytanie o granice 
-        PARmin = 0
-        PARmax = 1
-        if minimum >= PARmin and maximum <= PARmax and minimum <= maximum:
-            self.__PARmax = maximum
-            self.__PARmin = minimum
-        else:
-            if(minimum <= maximum):
-                raise Exception("PAR should be in [" + str(PARmin) + "; "
-                                + str(PARmax) + "] range")
-            else:
-                raise Exception("'min' should be less than 'max'")
-    
-    
+    def setHMCR(self, HMCR):
+        self._setPair('HMCR', 0, 1, HMCR)
+        
+    def setPAR(self, PAR):
+        self._setPair('PAR', 0, 1, PAR)
+        
+    def setBW(self, BW):
+        self._setPair('BW', -100, 100, BW)
+        
     def setTmax(self, Tmax):
-        try:
-            Tmax = int(Tmax)
-        except:
-            raise Exception("Tmax should be an integer")
+        self._setInteger('Tmax', Tmax)
+    
+    def setHMS(self, HMS):
+        self._setInteger('HMS', HMS)
         
-        if Tmax <= 1:
-            raise Exception("Tmax should be bigger than 1")
+    def _setPair(self, parameter, minLimit, maxLimit, inputList):
+        if type(inputList) == list and len(inputList) == 2:
+            try:
+                inputList[0] = float(inputList[0])
+                inputList[1] = float(inputList[1])
+            except:
+                raise Exception(parameter + " should be a pair of floats")
+            minimum = min(inputList)
+            maximum = max(inputList)      
         else:
-            self.__Tmax = Tmax
+            raise Exception("There should be min and max of " + parameter)
+            
+        if minimum >= minLimit and maximum <= maxLimit:
+            exec('self._' + parameter + 'max = maximum')
+            exec('self._' + parameter + 'min = minimum')
+        else:
+            raise Exception(parameter + "should be in [" + str(minLimit) + "; "
+                            + str(maxLimit) + "] range")
     
     
-    def setVariables(self, variables):
-        for var in variables:
-            if str(var)[0] not in 'qwertyuiopasdfghjklzxcvbnm':
-                raise Exception("Wrong name of variable")
-            else:
-                self.__variables.append(var)
-      
+    def _setInteger(self, parameter, value):
+        try:
+            value = int(value)
+        except:
+            raise Exception(parameter + " should be an integer")
         
-    def setFunction(self, string): 
+        if value <= 1:
+            raise Exception(parameter + " should be bigger than 1")
+        else:
+            exec('self._' + parameter + ' = value')
+            
+    
+    def setVariables(self, expression, constants={}):
+        try:
+            p = VariablesParser(expression, constants)
+            variables = p.getVariables()
+            self._variables = variables
+        except Exception as ex:
+            # messageBox
+            print(ex.args)  
+            
+            
+    def setFunction(self, string):
         strOfVars = ''
         strOfVarsFinal = ''
-        for var in self.__variables:
+        for var in self._variables:
             strOfVars += var
-            strOfVarsFinal += "X[" + var + "]"
-            if var != self.__variables[-1]:
+            strOfVarsFinal += "X['" + var + "']"
+            if var != self._variables[-1]:
                 strOfVars += ', '
                 strOfVarsFinal += ', '
         try:
-            IHSAlgorithm.__objective_function = eval('lambda '
+            self._objective_function = eval('lambda '
                 + strOfVars + ': ' + string)
-            IHSAlgorithm.compute = eval('lambda X: '
-                + 'self.__objective_function(%s)'%strOfVarsFinal)
+            self.compute = eval(
+                'lambda self, X: self._objective_function(%s)'%strOfVarsFinal
+                )
         except SyntaxError:
             # messageBox
             print('Nieprawidłowa funkcja')
         except NameError as err:
             #messageBox
             print('Niezdefiniowana zmienna: "' + err.args + '"')
-        else:
+        except Exception as err:
             #messageBox
-            print("Nieznany błąd")
+            print(err.args)
+            raise
+            
+            
+    def setBounds(self, index, lower, upper):
+        if len(self._varLowerBounds) <= index:
+            self._varLowerBounds.append(lower)
+            self._varUpperBounds.append(upper)
+        else:
+            self._varLowerBounds[index] = lower
+            self._varUpperBounds[index] = upper
+     
     
+    def _setDefaultBounds(self):
+        for i in range(len(self._variables)):
+            self.setBounds(i, -10, 10)
+ 
+
+def initIHS(HMS, HMCR, PAR, BW, Tmax, function):
+    #HMCR = [min, max] ...
+    ihs = I_IHSAlgorithm(HMS, HMCR, PAR, BW, Tmax, function)
+    ihs.doYourTask()
+    #dodac funkcje zwracania wynikow.
+    
+    return ihs
+
+Tmax = 2000
+
+ihs = initIHS(10, [0.2, 0.8], [0.2, 0.8], [0.2, 0.8], Tmax, 
+        "2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
+    
+print(ihs._f)
+print(ihs._HM)
