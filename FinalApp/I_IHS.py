@@ -19,6 +19,8 @@ było jakos logicznie je iterować (I mean sth. like self.__variables['x1'][1])
 (patrz: implementacja I_IHSAlgorithm.setFunction() -> przekazywanie argumentów
 do wyrażenia lambda)
 
+Dodać obsługę wszystkich granic dla pojedyńczych zmiennych
+
 '''
 """
         Error list
@@ -60,12 +62,15 @@ class I_IHSAlgorithm(IHSAlgorithm):
 
     def _setPair(self, parameter, minLimit, maxLimit, inputList):
         assert len(inputList) == 2, parameter + " input list has wrong size"
-        assert isinstance(inputList[0], float) and isinstance(inputList[1], float), parameter + " should be a pair of floats"
+        assert isinstance(inputList[0], float) and isinstance(inputList[1], float), parameter + \
+                                                                                    " should be a pair of floats"
         try:
             parMin = float(inputList[0])
             parMax = float(inputList[1])
         except ValueError:
             raise ValueError(parameter + " its floats but something went wrong")
+
+        #tutaj jednak trzeba raise ValueError zamiast assertów zrobić bo w gui ciężko to ogarnąć
         assert parMin <= parMax, parameter + ": parMin should be <= parMax"
         assert parMin >= minLimit, parameter + ": parMin should be >= minLimit"
         assert parMax <= maxLimit, parameter + ": parMax should be <= maxLimit"

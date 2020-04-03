@@ -28,15 +28,17 @@ class MainWindow(Ui_MainWin):
 
     def __nextButtonClicked(self):
         mainParameters = self.__readParameters()
-        self.__makePlot()
         ihs = I_IHSAlgorithm(mainParameters)
 
         bwDialog = QtWidgets.QDialog()
         ui = bandwidthDialog()
         ui.setupUi(bwDialog, ihs.getVariables())
-        # ui.addVariables(ihs.getVariables())
         bwDialog.exec()
+        minMaxBandwidthValues = ui.getMinMaxValues()
+        #zmodyfikowac aby wszystkie przekazac
+        # ihs.setBW(minMaxBandwidthValues[0])
         ihs.doYourTask()
+        self.__makePlot()
 
         print(ihs._f)
         pprint(ihs._HM)
