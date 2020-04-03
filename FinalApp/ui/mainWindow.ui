@@ -252,7 +252,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="calculateButton">
+       <widget class="QPushButton" name="nextButton">
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>

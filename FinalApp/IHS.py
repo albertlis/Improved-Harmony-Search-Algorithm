@@ -124,3 +124,6 @@ class IHSAlgorithm:
     def _getBW(self):
         c = log(self._BWmin / self._BWmax)
         return self._BWmax * exp(self._generation * c)
+
+    def getVariables(self):
+        return self._variables
