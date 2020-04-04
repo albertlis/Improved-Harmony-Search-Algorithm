@@ -65,17 +65,16 @@ class I_IHSAlgorithm(IHSAlgorithm):
         assert isinstance(inputList[0], float) and isinstance(inputList[1], float), parameter + \
                                                                                     " should be a pair of floats"
         try:
-            parMin = float(inputList[0])
-            parMax = float(inputList[1])
+            parameterMin = float(inputList[0])
+            parameterMax = float(inputList[1])
         except ValueError:
             raise ValueError(parameter + " its floats but something went wrong")
 
-        #tutaj jednak trzeba raise ValueError zamiast assertów zrobić bo w gui ciężko to ogarnąć
-        assert parMin <= parMax, parameter + ": parMin should be <= parMax"
-        assert parMin >= minLimit, parameter + ": parMin should be >= minLimit"
-        assert parMax <= maxLimit, parameter + ": parMax should be <= maxLimit"
-        exec('self._' + parameter + 'max = parMax')
-        exec('self._' + parameter + 'min = parMin')
+        assert parameterMin <= parameterMax, parameter + ": parameterMin should be <= parameterMax"
+        assert parameterMin >= minLimit, parameter + ": parameterMin should be >= minLimit"
+        assert parameterMax <= maxLimit, parameter + ": parameterMax should be <= maxLimit"
+        exec('self._' + parameter + 'max = parameterMax')
+        exec('self._' + parameter + 'min = parameterMin')
 
     def _setInteger(self, parameter, value):
         try:
