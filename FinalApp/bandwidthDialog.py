@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QDoubleSpinBox, QHBoxLayout, QVBoxLayout, QLabel, QP
 from ui.bandwidthDialog import Ui_bandwidthDialog
 from pprint import pprint
 
+"""Bug kiedy zamyka się okno bez akceptacji zmiennych to się wywala aplikacja"""
+
 
 class bandwidthDialog(Ui_bandwidthDialog):
     def __init__(self):
