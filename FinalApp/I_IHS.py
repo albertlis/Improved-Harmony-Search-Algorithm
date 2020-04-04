@@ -25,6 +25,7 @@ Dodać obsługę wszystkich granic dla pojedyńczych zmiennych
 """
         Error list
 -prawdopodobnie gettery nie dzialaja po modyfikacji setPair
+- kiedy ustawiam BW na 0.0 wywala się
 """
 from IHS import *
 
