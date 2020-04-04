@@ -1,8 +1,7 @@
-from PyQt5.QtWidgets import QDoubleSpinBox, QGridLayout, QHBoxLayout, QVBoxLayout, QLabel, QPushButton
+from PyQt5.QtWidgets import QDoubleSpinBox, QHBoxLayout, QVBoxLayout, QLabel, QPushButton
 
 from ui.bandwidthDialog import Ui_bandwidthDialog
 from pprint import pprint
-from I_IHS import I_IHSAlgorithm
 
 
 class bandwidthDialog(Ui_bandwidthDialog):
@@ -46,12 +45,12 @@ class bandwidthDialog(Ui_bandwidthDialog):
         return horizontalLayout
 
     def __calculateButtonClicked(self):
-        print('click')
         mins = [minBox.value() for minBox in self.__minBoxes]
         maxes = [maxBox.value() for maxBox in self.__maxBoxes]
         self.__minMaxValues = tuple(zip(mins, maxes))
         pprint(self.__minMaxValues)
-        #self.close()
+        # nie działa dlaczego?
+        # self.close()
 
 
     def getMinMaxValues(self):

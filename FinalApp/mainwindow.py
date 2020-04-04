@@ -43,9 +43,20 @@ class MainWindow(Ui_MainWin):
         print(ihs._f)
         pprint(ihs._HM)
 
+    def __hcmrMaxValueChanged(self):
+        if self.hcmrMaxBox.value() <= self.hcmrMinBox.value():
+            self.hcmrMinBox.setValue(self.hcmrMaxBox.value() - 0.2)
+        # print(self.hcmrMinBox.value())
+
+    def __hcmrMinValueChanged(self):
+        if self.hcmrMaxBox.value() <= self.hcmrMinBox.value():
+            self.hcmrMaxBox.setValue(self.hcmrMaxBox.value() + 0.2)
+
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
         self.functionBox.setText("2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
         self.nextButton.clicked.connect(self.__nextButtonClicked)
+        self.hcmrMaxBox.valueChanged.connect(self.__hcmrMaxValueChanged)
+        self.hcmrMinBox.valueChanged.connect(self.__hcmrMinValueChanged)
 
 

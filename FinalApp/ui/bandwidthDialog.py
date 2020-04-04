@@ -8,9 +8,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QDialog
 
 
-class Ui_bandwidthDialog(object):
+class Ui_bandwidthDialog(QDialog):
+# class Ui_bandwidthDialog(object):
+
     def setupUi(self, bandwidthDialog):
         bandwidthDialog.setObjectName("bandwidthDialog")
         bandwidthDialog.resize(400, 300)
