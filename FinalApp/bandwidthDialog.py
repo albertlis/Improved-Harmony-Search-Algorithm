@@ -47,9 +47,9 @@ class bandwidthDialog(Ui_bandwidthDialog):
         return horizontalLayout
 
     def __calculateButtonClicked(self):
-        mins = [minBox.value() for minBox in self.__minBoxes]
-        maxes = [maxBox.value() for maxBox in self.__maxBoxes]
-        self.__minMaxValues = tuple(zip(mins, maxes))
+        minValues = [minBox.value() for minBox in self.__minBoxes]
+        maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
+        self.__minMaxValues = tuple(zip(minValues, maxValues))
         pprint(self.__minMaxValues)
         # nie działa dlaczego?
         # self.close()

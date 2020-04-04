@@ -24,8 +24,7 @@ Dodać obsługę wszystkich granic dla pojedyńczych zmiennych
 '''
 """
         Error list
--prawdopodobnie gettery nie dzialaja po modyfikacji setPair
-- kiedy ustawiam BW na 0.0 wywala się
+-prawdopodobnie getter nie dziala po modyfikacji setPair
 """
 from IHS import *
 
@@ -117,7 +116,7 @@ class I_IHSAlgorithm(IHSAlgorithm):
             print('Nieprawidłowa funkcja')
         except NameError as err:
             # messageBox
-            print('Niezdefiniowana zmienna: "' + err.args + '"')
+            print('Niezdefiniowana zmienna: "' + str(err.args) + '"')
         except Exception as err:
             # messageBox
             print(err.args)

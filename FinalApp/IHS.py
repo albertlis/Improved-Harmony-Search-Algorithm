@@ -18,6 +18,10 @@ raczej trzeba będzie to robić przez ParentClass.<element ParentClass>...
     
     Na bieżąco dopisywane funkcje...
 
+Do optymalizacji:
+- w updateHM() linia if max(self._f) == self._f[i]: generuje duży narzut obliczeniowy
+lepiej max sprawdzić raz zamiast w każdej iteracji. Promlem będzie się objawiał przy dużym HM
+
 '''
 
 import copy
