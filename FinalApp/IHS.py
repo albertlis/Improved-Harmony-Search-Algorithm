@@ -19,8 +19,12 @@ raczej trzeba będzie to robić przez ParentClass.<element ParentClass>...
     Na bieżąco dopisywane funkcje...
 
 Do optymalizacji:
-- w updateHM() linia if max(self._f) == self._f[i]: generuje duży narzut obliczeniowy
-lepiej max sprawdzić raz zamiast w każdej iteracji. Promlem będzie się objawiał przy dużym HM
+- w updateHM() linia if max(self._f) == self._f[i]: generuje duży narzut obliczeniowy           |
+lepiej max sprawdzić raz zamiast w każdej iteracji. Promlem będzie się objawiał przy dużym HM   | generalnie zrobione
+Warto także przerwać fora po aktualizacji bo nie ma sensu aby się bezczynnie wykonywał          | przetestuj czy działa
+
+updateHM() - przyjmuje parametr curr który jest nieużywany
+
 
 '''
 
@@ -105,11 +109,13 @@ class IHSAlgorithm:
     def updateHM(self, curr, new):
         f = self.compute(self, new)
         # for finding minimum
-        if f < max(self._f):
+        fMaxValue = max(self._f)
+        if f < fMaxValue:
             for i in range(len(self._f)):
-                if max(self._f) == self._f[i]:
+                if fMaxValue == self._f[i]:
                     self._f[i] = f
                     self._HM[i] = new
+                    break
 
     def doYourTask(self):
         while self._generation < self._Tmax:
