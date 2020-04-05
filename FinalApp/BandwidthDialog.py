@@ -3,23 +3,22 @@ from PyQt5.QtWidgets import QDoubleSpinBox, QHBoxLayout, QVBoxLayout, QLabel, QP
 from ui.bandwidthDialog import Ui_bandwidthDialog
 from pprint import pprint
 
-"""Bug kiedy zamyka się okno bez akceptacji zmiennych to się wywala aplikacja"""
 
-
-class bandwidthDialog(Ui_bandwidthDialog):
+class BandwidthDialog(Ui_bandwidthDialog):
     def __init__(self):
-        super(bandwidthDialog, self).__init__()
+        super(BandwidthDialog, self).__init__()
+        self.__minBoxes = []
+        self.__maxBoxes = []
+        self.__minMaxValues = ()
 
-    def setupUi(self,  variables):
+    def setupUi(self, variables):
         super().setupUi(self)
         self.__setLayout(self, variables)
         self.calculateButton.clicked.connect(self.__calculateButtonClicked)
 
     def __setLayout(self, bwDialog, variables):
-        self.variables = variables
+        # self.variables = variables
         verticalLayout = QVBoxLayout()
-        self.__minBoxes = []
-        self.__maxBoxes = []
         for var in variables:
             verticalLayout.addLayout(self.__addLineWithBandwidthParameters(var))
         self.calculateButton = self.__makeCalculateButton()
@@ -53,15 +52,7 @@ class bandwidthDialog(Ui_bandwidthDialog):
         # pprint(self.__minMaxValues)
         self.close()
 
-
     def getMinMaxValues(self):
         if not hasattr(self, '__minMaxValues'):
             self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
         return self.__minMaxValues
-"""
-    def __calculateButtonClicked(self):
-        ihs = I_IHSAlgorithm(self.__readBandwidth())
-        ihs.doYourTask()
-        print(ihs._f)
-        pprint(ihs._HM)
-        print(self.__variables)"""

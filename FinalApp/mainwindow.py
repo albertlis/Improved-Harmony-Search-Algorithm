@@ -1,12 +1,8 @@
 from pprint import pprint
 
-from PyQt5 import QtWidgets
-
 from I_IHS import I_IHSAlgorithm
 from ui.mainWin import Ui_MainWin
-
-from ui.bandwidthDialog import Ui_bandwidthDialog
-from bandwidthDialog import bandwidthDialog
+from BandwidthDialog import BandwidthDialog
 
 
 class MainWindow(Ui_MainWin):
@@ -30,7 +26,7 @@ class MainWindow(Ui_MainWin):
         mainParameters = self.__readParameters()
         ihs = I_IHSAlgorithm(mainParameters)
 
-        ui = bandwidthDialog()
+        ui = BandwidthDialog()
         ui.setupUi(ihs.getVariables())
         ui.exec()
         minMaxBandwidthValues = ui.getMinMaxValues()

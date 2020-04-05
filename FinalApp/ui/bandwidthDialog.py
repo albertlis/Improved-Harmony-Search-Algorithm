@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'bandwidthDialog.ui'
+# Form implementation generated from reading ui file 'BandwidthDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.2
 #
@@ -15,7 +15,7 @@ class Ui_bandwidthDialog(QDialog):
 # class Ui_bandwidthDialog(object):
 
     def setupUi(self, bandwidthDialog):
-        bandwidthDialog.setObjectName("bandwidthDialog")
+        bandwidthDialog.setObjectName("BandwidthDialog")
         bandwidthDialog.resize(400, 300)
 
         self.retranslateUi(bandwidthDialog)
@@ -23,7 +23,7 @@ class Ui_bandwidthDialog(QDialog):
 
     def retranslateUi(self, bandwidthDialog):
         _translate = QtCore.QCoreApplication.translate
-        bandwidthDialog.setWindowTitle(_translate("bandwidthDialog", "Dialog"))
+        bandwidthDialog.setWindowTitle(_translate("BandwidthDialog", "Dialog"))
 
 
 if __name__ == "__main__":
