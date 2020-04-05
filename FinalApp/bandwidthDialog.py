@@ -10,9 +10,9 @@ class bandwidthDialog(Ui_bandwidthDialog):
     def __init__(self):
         super(bandwidthDialog, self).__init__()
 
-    def setupUi(self, bwDialog, variables):
-        super().setupUi(bwDialog)
-        self.__setLayout(bwDialog, variables)
+    def setupUi(self,  variables):
+        super().setupUi(self)
+        self.__setLayout(self, variables)
         self.calculateButton.clicked.connect(self.__calculateButtonClicked)
 
     def __setLayout(self, bwDialog, variables):
@@ -50,12 +50,13 @@ class bandwidthDialog(Ui_bandwidthDialog):
         minValues = [minBox.value() for minBox in self.__minBoxes]
         maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
         self.__minMaxValues = tuple(zip(minValues, maxValues))
-        pprint(self.__minMaxValues)
-        # nie działa dlaczego?
-        # self.close()
+        # pprint(self.__minMaxValues)
+        self.close()
 
 
     def getMinMaxValues(self):
+        if not hasattr(self, '__minMaxValues'):
+            self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
         return self.__minMaxValues
 """
     def __calculateButtonClicked(self):

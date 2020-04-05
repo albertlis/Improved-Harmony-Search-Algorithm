@@ -30,10 +30,9 @@ class MainWindow(Ui_MainWin):
         mainParameters = self.__readParameters()
         ihs = I_IHSAlgorithm(mainParameters)
 
-        bwDialog = QtWidgets.QDialog()
         ui = bandwidthDialog()
-        ui.setupUi(bwDialog, ihs.getVariables())
-        bwDialog.exec()
+        ui.setupUi(ihs.getVariables())
+        ui.exec()
         minMaxBandwidthValues = ui.getMinMaxValues()
         #zmodyfikowac aby wszystkie przekazac
         # ihs.setBW(minMaxBandwidthValues[0])
