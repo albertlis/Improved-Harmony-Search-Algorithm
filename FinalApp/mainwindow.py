@@ -1,5 +1,7 @@
 from pprint import pprint
 
+from PyQt5.QtWidgets import QDialog
+
 from I_IHS import I_IHSAlgorithm
 from ui.mainWin import Ui_MainWin
 from BandwidthDialog import BandwidthDialog
@@ -20,23 +22,26 @@ class MainWindow(Ui_MainWin):
         hcmrMax = self.hcmrMaxBox.value()
         parMin = self.parMinBox.value()
         parMax = self.parMaxBox.value()
-        return fun, iterations, hms, hmcrMin, hcmrMax, parMin, parMax
+        bwMin = self.bwMinBox.value()
+        bwMax = self.bwMaxBox.value()
+        return fun, iterations, hms, hmcrMin, hcmrMax, parMin, parMax, bwMin, bwMax
 
     def __nextButtonClicked(self):
         mainParameters = self.__readParameters()
         ihs = I_IHSAlgorithm(mainParameters)
 
-        ui = BandwidthDialog()
-        ui.setupUi(ihs.getVariables())
-        ui.exec()
-        minMaxBandwidthValues = ui.getMinMaxValues()
-        #zmodyfikowac aby wszystkie przekazac
-        # ihs.setBW(minMaxBandwidthValues[0])
-        ihs.doYourTask()
-        self.__makePlot()
+        bandwidthDialog = BandwidthDialog()
+        bandwidthDialog.setupUi(ihs.getVariables())
+        if bandwidthDialog.exec() == QDialog.Accepted:
+            minMaxBandwidthValues = bandwidthDialog.getMinMaxValues()
+            for i in range(len(ihs.getVariables())):
+                ihs.setBounds(i, minMaxBandwidthValues[i][0], minMaxBandwidthValues[i][1])
+            print(ihs.getBounds())
+            ihs.doYourTask()
+            self.__makePlot()
 
-        print(ihs._f)
-        pprint(ihs._HM)
+            print(ihs._f)
+            pprint(ihs._HM)
 
     def __hcmrMaxValueChanged(self):
         if self.hcmrMaxBox.value() <= self.hcmrMinBox.value():
@@ -54,6 +59,14 @@ class MainWindow(Ui_MainWin):
         if self.parMaxBox.value() <= self.parMinBox.value():
             self.parMinBox.setValue(self.parMaxBox.value() - 0.2)
 
+    def __bwMinValueChanged(self):
+        if self.bwMaxBox.value() <= self.bwMinBox.value():
+            self.bwMaxBox.setValue(self.bwMinBox.value() + 0.2)
+
+    def __bwMaxValueChanged(self):
+        if self.bwMaxBox.value() <= self.bwMinBox.value():
+            self.bwMinBox.setValue(self.bwMaxBox.value() -0.2)
+
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
         self.functionBox.setText("2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
@@ -62,5 +75,7 @@ class MainWindow(Ui_MainWin):
         self.hcmrMinBox.valueChanged.connect(self.__hcmrMinValueChanged)
         self.parMaxBox.valueChanged.connect(self.__parMaxValueChanged)
         self.parMinBox.valueChanged.connect(self.__parMinValueChanged)
+        self.bwMaxBox.valueChanged.connect(self.__bwMaxValueChanged)
+        self.bwMinBox.valueChanged.connect(self.__bwMinValueChanged)
 
 

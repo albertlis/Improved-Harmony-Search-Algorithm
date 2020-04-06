@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QDoubleSpinBox, QHBoxLayout, QVBoxLayout, QLabel, QP
 from ui.bandwidthDialog import Ui_bandwidthDialog
 from pprint import pprint
 
+#Na razie nie zabezpieczone, da sie to rozwiazac?
+
 
 class BandwidthDialog(Ui_bandwidthDialog):
     def __init__(self):
@@ -36,8 +38,10 @@ class BandwidthDialog(Ui_bandwidthDialog):
         minText = QLabel(var + ' min:')
         maxText = QLabel('max:')
         minBox = QDoubleSpinBox()
+        minBox.setMinimum(-1e20)
         self.__minBoxes.append(minBox)
         maxBox = QDoubleSpinBox()
+        maxBox.setMinimum(-1e20)
         self.__maxBoxes.append(maxBox)
         horizontalLayout.addWidget(minText)
         horizontalLayout.addWidget(minBox)
@@ -50,9 +54,9 @@ class BandwidthDialog(Ui_bandwidthDialog):
         maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
         self.__minMaxValues = tuple(zip(minValues, maxValues))
         # pprint(self.__minMaxValues)
-        self.close()
+        self.accept()
 
     def getMinMaxValues(self):
-        if not hasattr(self, '__minMaxValues'):
+        if '__minMaxValues' in locals():
             self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
         return self.__minMaxValues

@@ -25,6 +25,7 @@ Dodać obsługę wszystkich granic dla pojedyńczych zmiennych
 """
         Error list
 -prawdopodobnie getter nie dziala po modyfikacji setPair
+- granice są ale nie działają poprawnie
 """
 from IHS import *
 
@@ -33,10 +34,10 @@ class I_IHSAlgorithm(IHSAlgorithm):
     # dodac nowe okno z bw
     def __init__(self, parameters, BW=[0.2, 0.8]):
         IHSAlgorithm.__init__(self)
-        assert len(parameters) == 7
+        assert len(parameters) == 9, "Wrong number of parameters"
         self.setHMCR(list(parameters[3:5]))
         self.setPAR(parameters[5:7])
-        self.setBW(BW)
+        self.setBW(parameters[7:9])
         self.setHMS(parameters[2])
         self.setTmax(parameters[1])
         self.setVariables(parameters[0])
@@ -96,6 +97,9 @@ class I_IHSAlgorithm(IHSAlgorithm):
             # messageBox
             print(ex.args)
 
+    def getVariables(self):
+        return self._variables
+
     def setFunction(self, string):
         strOfVars = ''
         strOfVarsFinal = ''
@@ -134,7 +138,8 @@ class I_IHSAlgorithm(IHSAlgorithm):
         for i in range(len(self._variables)):
             self.setBounds(i, -10, 10)
 
-
+    def getBounds(self):
+        return self._varLowerBounds, self._varUpperBounds
 # aktualnie nie dziala
 """if __name__ == "__main__":
     def initIHS(HMS, HMCR, PAR, BW, Tmax, function):

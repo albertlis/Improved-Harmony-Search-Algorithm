@@ -33,10 +33,10 @@ class VariablesParser:
     
     #throws exceptions if wrong expression
     def getVariables(self):
-        print()
-        print(self.__string)
-        print('where const:')
-        print(self.__constants)
+        # print()
+        # print(self.__string)
+        # print('where const:')
+        # print(self.__constants)
         self.__parse()
         if self.__hasNext():
             raise Exception("Unexpected character found: '" + self.__wrongExp + "'")
