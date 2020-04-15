@@ -28,3 +28,5 @@ w języku polskim.
     plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
 Dodałem try except ale trzeba się zastanowić co z tym zrobić
     
+
+    __functionValueChanged(self): # Wiesz jak tu zrobić default color? ----> Najprościej w css
