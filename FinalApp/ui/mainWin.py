@@ -38,13 +38,20 @@ class Ui_MainWin(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setObjectName("label")
+        
+        #functionBox
         self.horizontalLayout.addWidget(self.label)
         self.functionBox = QtWidgets.QLineEdit(self.centralwidget)
         self.functionBox.setMinimumSize(QtCore.QSize(200, 0))
         self.functionBox.setObjectName("functionBox")
         self.horizontalLayout.addWidget(self.functionBox)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        self.label_function_error = QtWidgets.QLabel(self.centralwidget)
+        self.label_function_error.setObjectName("label_function_error")
+        self.verticalLayout.addWidget(self.label_function_error)
         self.verticalLayout_2.addLayout(self.verticalLayout)
+        
+        #iterationsBox V3->
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)

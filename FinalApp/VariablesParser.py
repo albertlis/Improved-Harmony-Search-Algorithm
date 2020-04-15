@@ -33,10 +33,6 @@ class VariablesParser:
     
     #throws exceptions if wrong expression
     def getVariables(self):
-        # print()
-        # print(self.__string)
-        # print('where const:')
-        # print(self.__constants)
         self.__parse()
         if self.__hasNext():
             raise Exception("Unexpected character found: '" + self.__wrongExp + "'")
@@ -199,7 +195,7 @@ class VariablesParser:
     
     
 #ta funkcja do dopasowania do programu
-def evaluate(expression, constants={}):
+def evaluateError(expression, constants={}):
     try:
         p = VariablesParser(expression, constants)
         variables = p.getVariables()
@@ -208,7 +204,7 @@ def evaluate(expression, constants={}):
             outStr += var
             if var != variables[len(variables) - 1]:
                 outStr += ', '
-        if outStr != '': return 'Variables: ' + outStr
-        else: return 'No Variables'
+        if outStr != '': return 'Wykryte zmienne: ' + outStr, 0
+        else: return 'Brak zmiennych', 1
     except Exception as ex:
-        return ex.args   
+        return ex.args, 2

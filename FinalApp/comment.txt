@@ -1,0 +1,25 @@
+    Do sprawdzenia w BandwidthDialog.py funkcja getMinMaxValues() czy wgl potrzebny ten if
+(jakby co to jeszcze nie sprawdzałem, ale w poprzedniej wersji działało mi tylko bez if'a
+choć był on trochę inaczej skonstruowany)
+
+    Fajnie jakby poniższe funkcje można było po prostu kliknąć
+w licie rozwijanej w polu funkcji. Dopisać więcej.
+Można zrobić zczytywanie z pliku .txt po linijce zapisane tam funkcje.
+Ciekawe funkcje:
+    pow(16*(x*y)*(1-x)*(1-y)*sin(9*pi*x)*sin(9*pi*y),2)*(-1)
+
+    W mainwindow.py inaczej można zrobić te metody __...ValueChanged, które dopasowują
+to żeby min < max, bo czasami jest to irytujące. Ja bym raczej zablokował przycisk akceptacji
+w przypadku kiedy min > max i dał o tym jakąs informacęję.
+Jeli Ci to opowiada to mogę zaimplementować, bo już to robiłem w mainwindow.
+
+    W okienkach powinna być możliwosć wpisania wiecej niż 2 cyfr po przecinku.
+
+    Ew. można zmienić tak, żeby wyjątki zwracane przez Variable Parser
+w języku polskim.
+
+    Dodać wyrysowywanie punktów na wykresie.
+    
+    Dokończyć to okno z rozwiązaniami.
+    
+    

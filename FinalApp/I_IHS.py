@@ -2,7 +2,8 @@
 """
 Created on Mon Mar 23 09:27:20 2020
 
-@author: Adrian Czupak
+@author:
+    Adrian Czupak & Albert Lis
 """
 
 '''
@@ -19,23 +20,40 @@ było jakos logicznie je iterować (I mean sth. like self.__variables['x1'][1])
 (patrz: implementacja I_IHSAlgorithm.setFunction() -> przekazywanie argumentów
 do wyrażenia lambda)
 
-Dodać obsługę wszystkich granic dla pojedyńczych zmiennych
 
 '''
-"""
-        Error list
--prawdopodobnie getter nie dziala po modyfikacji setPair
-- granice są ale nie działają poprawnie
-"""
 from IHS import *
 
-
 class I_IHSAlgorithm(IHSAlgorithm):
-    # dodac nowe okno z bw
-    def __init__(self, parameters, BW=[0.2, 0.8]):
+    def __init__(self, parameters):
+        """
+        
+
+        Parameters
+        ----------
+        parameters : list of algortihm parameter
+            [0] = function ( eg. x+1*sin(2*pi*x2) )
+            [1] = Tmax - Number Of Iterations
+            [2] = HMS - Hmarmony Memory Size
+            [3] = HMCRmin - Minimum Harmony Memory Considering Rate
+                    - between [0; 1]
+            [4] = HMCRmax - Maximum HMCR
+                    - between [0; 1]
+            [5] = PARmin
+                    - between [0; 1]
+            [6] = PARmax
+                    - between [0; 1]
+            [7] = BWmin > 0
+            [8] = BWmax > 0
+            
+        Returns
+        -------
+        None.
+
+        """
         IHSAlgorithm.__init__(self)
-        assert len(parameters) == 9, "Wrong number of parameters"
-        self.setHMCR(list(parameters[3:5]))
+        assert len(parameters) == 9
+        self.setHMCR(parameters[3:5])
         self.setPAR(parameters[5:7])
         self.setBW(parameters[7:9])
         self.setHMS(parameters[2])
@@ -43,7 +61,6 @@ class I_IHSAlgorithm(IHSAlgorithm):
         self.setVariables(parameters[0])
         self._setDefaultBounds()
         self.setFunction(parameters[0])
-        self.initializeHM()
 
     # W setterach poustawiać granice w jakich mogą się znaleźć dane parametry
     def setHMCR(self, HMCR):
@@ -53,7 +70,7 @@ class I_IHSAlgorithm(IHSAlgorithm):
         self._setPair('PAR', 0, 1, PAR)
 
     def setBW(self, BW):
-        self._setPair('BW', -100, 100, BW)
+        self._setPair('BW', 1e-20, 1e20, BW)
 
     def setTmax(self, Tmax):
         self._setInteger('Tmax', Tmax)
@@ -140,21 +157,24 @@ class I_IHSAlgorithm(IHSAlgorithm):
 
     def getBounds(self):
         return self._varLowerBounds, self._varUpperBounds
-# aktualnie nie dziala
-"""if __name__ == "__main__":
+
+
+
+if __name__ == "__main__":
     def initIHS(HMS, HMCR, PAR, BW, Tmax, function):
         # HMCR = [min, max] ...
-        ihs = I_IHSAlgorithm(HMS, HMCR, PAR, BW, Tmax, function)
+        ihs = I_IHSAlgorithm([function, Tmax, HMS, HMCR[0], HMCR[1], PAR[0],
+                              PAR[1], BW[0], BW[1]])
         ihs.doYourTask()
         # dodac funkcje zwracania wynikow.
 
-        return ihs"
+        return ihs
 
 
-    Tmax = 2000
+    Tmax = 200000
 
-    ihs = initIHS(10, [0.2, 0.8], [0.2, 0.8], [0.2, 0.8], Tmax,
+    ihs = initIHS(10, [0.85, 0.95], [0.2, 0.8], [0.00001, 0.2], Tmax,
                   "2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
 
     print(ihs._f)
-    print(ihs._HM)"""
+    print(ihs._HM)

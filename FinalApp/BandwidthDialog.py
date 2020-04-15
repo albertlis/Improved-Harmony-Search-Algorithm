@@ -38,10 +38,10 @@ class BandwidthDialog(Ui_bandwidthDialog):
         minText = QLabel(var + ' min:')
         maxText = QLabel('max:')
         minBox = QDoubleSpinBox()
-        minBox.setMinimum(-1e20)
+        minBox.setMinimum(1e-20)
         self.__minBoxes.append(minBox)
         maxBox = QDoubleSpinBox()
-        maxBox.setMinimum(-1e20)
+        maxBox.setMinimum(1e-20)
         self.__maxBoxes.append(maxBox)
         horizontalLayout.addWidget(minText)
         horizontalLayout.addWidget(minBox)
@@ -53,7 +53,6 @@ class BandwidthDialog(Ui_bandwidthDialog):
         minValues = [minBox.value() for minBox in self.__minBoxes]
         maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
         self.__minMaxValues = tuple(zip(minValues, maxValues))
-        # pprint(self.__minMaxValues)
         self.accept()
 
     def getMinMaxValues(self):
