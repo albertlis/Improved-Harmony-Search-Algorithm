@@ -22,8 +22,12 @@ class PlotWidget(QWidget):
     def plotData(self, variables, function, lowBounds, upBounds):
         assert len(variables) == 2
         Z = []
-        x1 = np.arange(lowBounds[0], upBounds[0], (upBounds[0] - lowBounds[0]) / 1000)
-        x2 = np.arange(lowBounds[1], upBounds[1], (upBounds[0] - lowBounds[0]) / 1000)
+        try:
+            x1 = np.arange(lowBounds[0], upBounds[0], (upBounds[0] - lowBounds[0]) / 1000)
+            x2 = np.arange(lowBounds[1], upBounds[1], (upBounds[0] - lowBounds[0]) / 1000)
+        except ZeroDivisionError as e:
+            print(e)
+            return
         X1, X2 = np.meshgrid(x1, x2)
         for i in range(1000):
             Z.append([])

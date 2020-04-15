@@ -1,6 +1,9 @@
     Do sprawdzenia w BandwidthDialog.py funkcja getMinMaxValues() czy wgl potrzebny ten if
 (jakby co to jeszcze nie sprawdzałem, ale w poprzedniej wersji działało mi tylko bez if'a
-choć był on trochę inaczej skonstruowany)
+choć był on trochę inaczej skonstruowany) ----> nie pamiętam o co chodziło dokładnie ale
+ rzuca wyjątek w którejś specyficznej sytuacji. Dlatego jest konieczne żeby tam były zmienne.
+Ew można przenieść inicjalizację do __init__ wtedy powinno być cacy (chyba bo serio nie pamiętam
+o co chodziło). Na razie przeniosłem ale nie usuwaj komentów.
 
     Fajnie jakby poniższe funkcje można było po prostu kliknąć
 w licie rozwijanej w polu funkcji. Dopisać więcej.
@@ -22,4 +25,6 @@ w języku polskim.
     
     Dokończyć to okno z rozwiązaniami.
     
+    plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
+Dodałem try except ale trzeba się zastanowić co z tym zrobić
     

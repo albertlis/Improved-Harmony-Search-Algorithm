@@ -11,7 +11,7 @@ class BandwidthDialog(Ui_bandwidthDialog):
         super(BandwidthDialog, self).__init__()
         self.__minBoxes = []
         self.__maxBoxes = []
-        self.__minMaxValues = ()
+        self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
 
     def setupUi(self, variables):
         super().setupUi(self)
@@ -56,6 +56,6 @@ class BandwidthDialog(Ui_bandwidthDialog):
         self.accept()
 
     def getMinMaxValues(self):
-        if '__minMaxValues' in locals():
-            self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
+        # if '__minMaxValues' in locals():
+        #     self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
         return self.__minMaxValues
