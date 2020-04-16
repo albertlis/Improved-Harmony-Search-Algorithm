@@ -18,3 +18,8 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color:green;
 }
+
+QStatusBar {
+background: #222;
+color: tomato;
+}

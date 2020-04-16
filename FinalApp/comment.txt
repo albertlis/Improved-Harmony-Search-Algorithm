@@ -16,17 +16,18 @@ to żeby min < max, bo czasami jest to irytujące. Ja bym raczej zablokował prz
 w przypadku kiedy min > max i dał o tym jakąs informacęję.
 Jeli Ci to opowiada to mogę zaimplementować, bo już to robiłem w mainwindow.
 
-    W okienkach powinna być możliwosć wpisania wiecej niż 2 cyfr po przecinku.
-
     Ew. można zmienić tak, żeby wyjątki zwracane przez Variable Parser
 w języku polskim.
 
-    Dodać wyrysowywanie punktów na wykresie.
-    
-    Dokończyć to okno z rozwiązaniami.
-    
-    plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
-Dodałem try except ale trzeba się zastanowić co z tym zrobić
-    
-
     __functionValueChanged(self): # Wiesz jak tu zrobić default color? ----> Najprościej w css
+
+TODO:
+1. Dodać wyrysowywanie punktów na wykresie.
+2. Dokończyć to okno z rozwiązaniami.
+3. Blokada przycisku zamiast zmiany wartości min max
+4. Lista predefiniowanych funkcji
+
+Error List:
+1. plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
+Dodałem try except ale trzeba się zastanowić co z tym zrobić
+2. W okienkach powinna być możliwosć wpisania wiecej niż 2 cyfr po przecinku.
