@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>956</width>
-    <height>497</height>
+    <height>533</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -117,6 +117,13 @@
          <widget class="QLabel" name="label_function_error">
           <property name="text">
            <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="predefinedFunctionButton">
+          <property name="text">
+           <string>Wybierz predefiniowaną funkcję</string>
           </property>
          </widget>
         </item>

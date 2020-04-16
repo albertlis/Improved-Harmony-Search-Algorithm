@@ -3,6 +3,7 @@ from pprint import pprint
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QDialog, QGraphicsDropShadowEffect
 
+from FunctionChooseDialog import FunctionChooseDialog
 from I_IHS import I_IHSAlgorithm
 from ui.mainWin import Ui_MainWin
 from BandwidthDialog import BandwidthDialog
@@ -96,11 +97,22 @@ class MainWindow(Ui_MainWin):
             string = string[0]
         else:
             # Wiesz jak tu zrobić default color?
-            # self.label_function_error.setStyleSheet("QLabel { color : white; }")
+            self.label_function_error.setStyleSheet("QLabel { color : white; }")
             self.nextButton.setEnabled(True)
             
         self.label_function_error.setText(QtCore.QCoreApplication.translate("MainWin", string))
-        
+
+    def __openFunctionChooseDialog(self):
+        functionChooseDialog = FunctionChooseDialog()
+        functionChooseDialog.setupUi()
+        if functionChooseDialog.exec() == QDialog.Accepted:
+            pass
+            # minMaxBandwidthValues = functionChooseDialog.getMinMaxValues()
+            # for i in range(len(self.ihs.getVariables())):
+            #     self.ihs.setBounds(i, minMaxBandwidthValues[i][0], minMaxBandwidthValues[i][1])
+            # self.ihs.doYourTask()
+            # self.__makePlot()
+
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
         self.functionBox.setText("2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
@@ -115,4 +127,5 @@ class MainWindow(Ui_MainWin):
         self.bwMaxBox.valueChanged.connect(self.__bwMaxValueChanged)
         self.bwMinBox.valueChanged.connect(self.__bwMinValueChanged)
         self.functionBox.textChanged.connect(self.__functionValueChanged)
+        self.predefinedFunctionButton.clicked.connect(self.__openFunctionChooseDialog)
 

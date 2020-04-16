@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWin(object):
     def setupUi(self, MainWin):
         MainWin.setObjectName("MainWin")
-        MainWin.resize(956, 497)
+        MainWin.resize(956, 533)
         self.centralwidget = QtWidgets.QWidget(MainWin)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -53,6 +53,9 @@ class Ui_MainWin(object):
         self.label_function_error.setText("")
         self.label_function_error.setObjectName("label_function_error")
         self.verticalLayout_2.addWidget(self.label_function_error)
+        self.predefinedFunctionButton = QtWidgets.QPushButton(self.centralwidget)
+        self.predefinedFunctionButton.setObjectName("predefinedFunctionButton")
+        self.verticalLayout_2.addWidget(self.predefinedFunctionButton)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
@@ -222,6 +225,7 @@ class Ui_MainWin(object):
         MainWin.setWindowTitle(_translate("MainWin", "Ulepszony Algorytm Poszukiwania Harmonii"))
         self.label_2.setText(_translate("MainWin", "Podaj funkcję"))
         self.label.setText(_translate("MainWin", "f(x)"))
+        self.predefinedFunctionButton.setText(_translate("MainWin", "Wybierz predefiniowaną funkcję"))
         self.label_3.setText(_translate("MainWin", "Ilość iteracji:"))
         self.label_6.setText(_translate("MainWin", "HMS"))
         self.label_4.setText(_translate("MainWin", "HMCR min"))
