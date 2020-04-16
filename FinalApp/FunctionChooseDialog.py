@@ -28,15 +28,16 @@ class FunctionChooseDialog(Ui_dialog, QDialog):
             file = open("functions.txt", 'r')
         except OSError as e:
             print(e)
-            return
+            return None
         functions = file.read().splitlines()
         file.close()
         return functions
 
     def __addFunctionsIntoBox(self):
         functions = self.__readFunctionsFromFile()
-        for function in functions:
-            self.functionBox.addItem(function)
+        if functions is not None:
+            for function in functions:
+                self.functionBox.addItem(function)
 
     def getChosenFunction(self):
         return self.__chosenFunction
