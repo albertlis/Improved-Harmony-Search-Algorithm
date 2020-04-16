@@ -25,7 +25,6 @@ w języku polskim.
 Do zrobienia:
 1. Dodać wyrysowywanie punktów na wykresie.
 2. Dokończyć to okno z rozwiązaniami.
-3. Blokada przycisku zamiast zmiany wartości min max
 4. Lista predefiniowanych funkcji
 
 Error List:

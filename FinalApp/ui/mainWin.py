@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWin(object):
     def setupUi(self, MainWin):
         MainWin.setObjectName("MainWin")
-        MainWin.resize(956, 466)
+        MainWin.resize(956, 497)
         self.centralwidget = QtWidgets.QWidget(MainWin)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -213,10 +213,6 @@ class Ui_MainWin(object):
         self.statusbar = QtWidgets.QStatusBar(MainWin)
         self.statusbar.setObjectName("statusbar")
         MainWin.setStatusBar(self.statusbar)
-        self.menubar = QtWidgets.QMenuBar(MainWin)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 956, 26))
-        self.menubar.setObjectName("menubar")
-        MainWin.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWin)
         QtCore.QMetaObject.connectSlotsByName(MainWin)
