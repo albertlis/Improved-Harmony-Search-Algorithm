@@ -15,6 +15,11 @@ class MainWindow(Ui_MainWin):
         super(MainWindow, self).__init__()
         self.boxesValueOffset = 0.000001
 
+    def setupUi(self, mainWindow):
+        super().setupUi(mainWindow)
+        self.functionBox.setText("2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
+        self.__connectSlots()
+
     def __makePlot(self):
         self.plotWidget.plotData(self.ihs._variables, self.ihs._objective_function,
                                  self.ihs._varLowerBounds, self.ihs._varUpperBounds)
@@ -32,6 +37,13 @@ class MainWindow(Ui_MainWin):
         return fun, iterations, hms, \
             hmcrMin, hcmrMax, parMin, \
             parMax, bwMin, bwMax
+
+    def __openFunctionChooseDialog(self):
+        functionChooseDialog = FunctionChooseDialog()
+        functionChooseDialog.setupUi()
+        if functionChooseDialog.exec() == QDialog.Accepted:
+            function = functionChooseDialog.getChosenFunction()
+            self.functionBox.setText(function)
 
     def __nextButtonClicked(self):
         self.ihs = I_IHSAlgorithm(self.__readParameters())
@@ -99,20 +111,8 @@ class MainWindow(Ui_MainWin):
             # Wiesz jak tu zrobić default color?
             self.label_function_error.setStyleSheet("QLabel { color : white; }")
             self.nextButton.setEnabled(True)
-            
+
         self.label_function_error.setText(QtCore.QCoreApplication.translate("MainWin", string))
-
-    def __openFunctionChooseDialog(self):
-        functionChooseDialog = FunctionChooseDialog()
-        functionChooseDialog.setupUi()
-        if functionChooseDialog.exec() == QDialog.Accepted:
-            function = functionChooseDialog.getChosenFunction()
-            self.functionBox.setText(function)
-
-    def setupUi(self, mainWindow):
-        super().setupUi(mainWindow)
-        self.functionBox.setText("2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
-        self.__connectSlots()
 
     def __connectSlots(self):
         self.nextButton.clicked.connect(self.__nextButtonClicked)

@@ -6,6 +6,7 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 import numpy as np
 from VariablesParser import *
 
+
 class PlotWidget(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
@@ -32,9 +33,9 @@ class PlotWidget(QWidget):
         for i in range(1000):
             Z.append([])
             for j in range(1000):
-                Z[i].append( function(x1[i], x2[j]) )
+                Z[i].append(function(x1[i], x2[j]))
 
         self.canvas.axes.clear()
-        CS = self.canvas.axes.contour(X1, X2, Z, origin='lower',)
+        CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
         self.canvas.draw()

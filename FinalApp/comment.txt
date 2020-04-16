@@ -35,3 +35,4 @@ Dodałem try except ale trzeba się zastanowić co z tym zrobić
     File "E:\Materialy\Magisterskie\1 Semestr\TiMO\Projekt\FinalApp\plotwidget.py", line 35, in plotData
         Z[i].append( function(x1[i], x2[j]) )
     IndexError: index 500 is out of bounds for axis 0 with size 500
+5. Dla defaultowej przy x1max = 1, x2max = 2, reszta 0 też się wywala

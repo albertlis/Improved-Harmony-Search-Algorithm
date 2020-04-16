@@ -12,17 +12,6 @@ class FunctionChooseDialog(Ui_dialog, QDialog):
         self.__connectSlots()
         self.__addFunctionsIntoBox()
 
-    def __okButtonClicked(self):
-        self.__chosenFunction = self.functionBox.currentText()
-        self.accept()
-
-    def __cancelButtonClicked(self):
-        self.close()
-
-    def __connectSlots(self):
-        self.okButton.clicked.connect(self.__okButtonClicked)
-        self.cancelButton.clicked.connect(self.__cancelButtonClicked)
-
     def __readFunctionsFromFile(self):
         try:
             file = open("functions.txt", 'r')
@@ -38,6 +27,17 @@ class FunctionChooseDialog(Ui_dialog, QDialog):
         if functions is not None:
             for function in functions:
                 self.functionBox.addItem(function)
+
+    def __okButtonClicked(self):
+        self.__chosenFunction = self.functionBox.currentText()
+        self.accept()
+
+    def __cancelButtonClicked(self):
+        self.close()
+
+    def __connectSlots(self):
+        self.okButton.clicked.connect(self.__okButtonClicked)
+        self.cancelButton.clicked.connect(self.__cancelButtonClicked)
 
     def getChosenFunction(self):
         return self.__chosenFunction

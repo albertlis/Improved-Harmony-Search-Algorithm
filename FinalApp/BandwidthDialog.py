@@ -18,7 +18,7 @@ class BandwidthDialog(Ui_bandwidthDialog):
     def setupUi(self, variables):
         super().setupUi(self)
         self.__setLayout(self, variables)
-        self.calculateButton.clicked.connect(self.__calculateButtonClicked)
+        self.__connectSlots()
 
     def __setLayout(self, bwDialog, variables):
         # self.variables = variables
@@ -31,26 +31,6 @@ class BandwidthDialog(Ui_bandwidthDialog):
         verticalLayout.addWidget(self.calculateButton)
         verticalLayout.addWidget(self.statusBar)
         bwDialog.setLayout(verticalLayout)
-
-
-        for minBox in self.__minBoxes:
-            minBox.valueChanged.connect(self.__minValueChanged)
-        for maxBox in self.__maxBoxes:
-            maxBox.valueChanged.connect(self.__maxValueChanged)
-
-    def __minValueChanged(self, value):
-        self.__readMinMaxValues()
-        if not self.__checkMinMaxIsCorrect():
-            self.__disableButtonAndShowMessage()
-        else:
-            self.__enableButtonAndClearMessage()
-
-    def __maxValueChanged(self):
-        self.__readMinMaxValues()
-        if not self.__checkMinMaxIsCorrect():
-            self.__disableButtonAndShowMessage()
-        else:
-            self.__enableButtonAndClearMessage()
 
     def __makeCalculateButton(self):
         calculateButton = QPushButton()
@@ -89,10 +69,10 @@ class BandwidthDialog(Ui_bandwidthDialog):
             return
         self.accept()
 
-    def getMinMaxValues(self):
-        # if '__minMaxValues' in locals():
-        #     self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
-        return self.__minMaxValues
+    def __readMinMaxValues(self):
+        minValues = [minBox.value() for minBox in self.__minBoxes]
+        maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
+        self.__minMaxValues = tuple(zip(minValues, maxValues))
 
     def __checkMinMaxIsCorrect(self):
         for min, max in self.__minMaxValues:
@@ -100,7 +80,28 @@ class BandwidthDialog(Ui_bandwidthDialog):
                 return False
         return True
 
-    def __readMinMaxValues(self):
-        minValues = [minBox.value() for minBox in self.__minBoxes]
-        maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
-        self.__minMaxValues = tuple(zip(minValues, maxValues))
+    def __minValueChanged(self):
+        self.__readMinMaxValues()
+        if not self.__checkMinMaxIsCorrect():
+            self.__disableButtonAndShowMessage()
+        else:
+            self.__enableButtonAndClearMessage()
+
+    def __maxValueChanged(self):
+        self.__readMinMaxValues()
+        if not self.__checkMinMaxIsCorrect():
+            self.__disableButtonAndShowMessage()
+        else:
+            self.__enableButtonAndClearMessage()
+
+    def __connectSlots(self):
+        for minBox in self.__minBoxes:
+            minBox.valueChanged.connect(self.__minValueChanged)
+        for maxBox in self.__maxBoxes:
+            maxBox.valueChanged.connect(self.__maxValueChanged)
+        self.calculateButton.clicked.connect(self.__calculateButtonClicked)
+
+    def getMinMaxValues(self):
+        # if '__minMaxValues' in locals():
+        #     self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
+        return self.__minMaxValues
