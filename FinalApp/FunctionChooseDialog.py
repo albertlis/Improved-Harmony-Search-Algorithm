@@ -10,8 +10,11 @@ class FunctionChooseDialog(Ui_dialog, QDialog):
     def setupUi(self):
         super().setupUi(self)
         self.__connectSlots()
+        self.__addFunctionsIntoBox()
 
     def __okButtonClicked(self):
+        self.__chosenFunction = self.functionBox.currentText()
+        print(self.__chosenFunction)
         self.accept()
 
     def __cancelButtonClicked(self):
@@ -20,3 +23,21 @@ class FunctionChooseDialog(Ui_dialog, QDialog):
     def __connectSlots(self):
         self.okButton.clicked.connect(self.__okButtonClicked)
         self.cancelButton.clicked.connect(self.__cancelButtonClicked)
+
+    def __readFunctionsFromFile(self):
+        try:
+            file = open("functions.txt", 'r')
+        except OSError as e:
+            print(e)
+            return
+        functions = file.read().splitlines()
+        file.close()
+        return functions
+
+    def __addFunctionsIntoBox(self):
+        functions = self.__readFunctionsFromFile()
+        for function in functions:
+            self.functionBox.addItem(function)
+
+    def getChosenFunction(self):
+        return self.__chosenFunction

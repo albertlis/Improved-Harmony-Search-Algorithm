@@ -25,9 +25,9 @@ w języku polskim.
 Do zrobienia:
 1. Dodać wyrysowywanie punktów na wykresie.
 2. Dokończyć to okno z rozwiązaniami.
-4. Lista predefiniowanych funkcji
 
 Error List:
 1. plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
 Dodałem try except ale trzeba się zastanowić co z tym zrobić
-2. W okienkach powinna być możliwosć wpisania wiecej niż 2 cyfr po przecinku.
+2. W okienkach powinna być możliwosć wpisania wiecej niż 2 cyfr po przecinku. | Done
+3. Pierwsza z funkcji powoduje wyświetlenie "B" w informacji pod functionBox

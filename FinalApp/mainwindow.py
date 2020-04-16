@@ -106,12 +106,8 @@ class MainWindow(Ui_MainWin):
         functionChooseDialog = FunctionChooseDialog()
         functionChooseDialog.setupUi()
         if functionChooseDialog.exec() == QDialog.Accepted:
-            pass
-            # minMaxBandwidthValues = functionChooseDialog.getMinMaxValues()
-            # for i in range(len(self.ihs.getVariables())):
-            #     self.ihs.setBounds(i, minMaxBandwidthValues[i][0], minMaxBandwidthValues[i][1])
-            # self.ihs.doYourTask()
-            # self.__makePlot()
+            function = functionChooseDialog.getChosenFunction()
+            self.functionBox.setText(function)
 
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
