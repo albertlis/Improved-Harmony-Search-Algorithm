@@ -19,9 +19,10 @@ Jeli Ci to opowiada to mogę zaimplementować, bo już to robiłem w mainwindow.
     Ew. można zmienić tak, żeby wyjątki zwracane przez Variable Parser
 w języku polskim.
 
-    __functionValueChanged(self): # Wiesz jak tu zrobić default color? ----> Najprościej w css
+    __functionValueChanged(self): # Wiesz jak tu zrobić default color? ----> Najprościej w css | jednak się nie da bo
+    nadpisujesz w programie.
 
-TODO:
+Do zrobienia:
 1. Dodać wyrysowywanie punktów na wykresie.
 2. Dokończyć to okno z rozwiązaniami.
 3. Blokada przycisku zamiast zmiany wartości min max

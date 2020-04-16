@@ -96,7 +96,7 @@ class MainWindow(Ui_MainWin):
             string = string[0]
         else:
             # Wiesz jak tu zrobić default color?
-            self.label_function_error.setStyleSheet("QLabel { color : white; }")
+            # self.label_function_error.setStyleSheet("QLabel { color : white; }")
             self.nextButton.setEnabled(True)
             
         self.label_function_error.setText(QtCore.QCoreApplication.translate("MainWin", string))
