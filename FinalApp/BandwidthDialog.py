@@ -32,6 +32,26 @@ class BandwidthDialog(Ui_bandwidthDialog):
         verticalLayout.addWidget(self.statusBar)
         bwDialog.setLayout(verticalLayout)
 
+
+        for minBox in self.__minBoxes:
+            minBox.valueChanged.connect(self.__minValueChanged)
+        for maxBox in self.__maxBoxes:
+            maxBox.valueChanged.connect(self.__maxValueChanged)
+
+    def __minValueChanged(self, value):
+        self.__readMinMaxValues()
+        if not self.__checkMinMaxIsCorrect():
+            self.__disableButtonAndShowMessage()
+        else:
+            self.__enableButtonAndClearMessage()
+
+    def __maxValueChanged(self):
+        self.__readMinMaxValues()
+        if not self.__checkMinMaxIsCorrect():
+            self.__disableButtonAndShowMessage()
+        else:
+            self.__enableButtonAndClearMessage()
+
     def __makeCalculateButton(self):
         calculateButton = QPushButton()
         calculateButton.setText("Calculate")
@@ -54,11 +74,18 @@ class BandwidthDialog(Ui_bandwidthDialog):
         horizontalLayout.addWidget(maxBox)
         return horizontalLayout
 
+    def __disableButtonAndShowMessage(self):
+        self.calculateButton.setDisabled(True)
+        self.statusBar.showMessage("Min musi być większe niż max")
+
+    def __enableButtonAndClearMessage(self):
+        self.calculateButton.setEnabled(True)
+        self.statusBar.clearMessage()
+
     def __calculateButtonClicked(self):
-        minValues = [minBox.value() for minBox in self.__minBoxes]
-        maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
-        self.__minMaxValues = tuple(zip(minValues, maxValues))
+        self.__readMinMaxValues()
         if not self.__checkMinMaxIsCorrect():
+            self.__disableButtonAndShowMessage()
             return
         self.accept()
 
@@ -70,6 +97,10 @@ class BandwidthDialog(Ui_bandwidthDialog):
     def __checkMinMaxIsCorrect(self):
         for min, max in self.__minMaxValues:
             if min >= max:
-                self.statusBar.showMessage("Min musi być większe niż max")
                 return False
         return True
+
+    def __readMinMaxValues(self):
+        minValues = [minBox.value() for minBox in self.__minBoxes]
+        maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
+        self.__minMaxValues = tuple(zip(minValues, maxValues))

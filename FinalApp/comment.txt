@@ -31,3 +31,7 @@ Error List:
 Dodałem try except ale trzeba się zastanowić co z tym zrobić
 2. W okienkach powinna być możliwosć wpisania wiecej niż 2 cyfr po przecinku. | Done
 3. Pierwsza z funkcji powoduje wyświetlenie "B" w informacji pod functionBox
+4. Dla drugiej przy parametrach x1 min = 0, x1max = 2, x2min = 1, x2max = 2 otrzymuję:
+    File "E:\Materialy\Magisterskie\1 Semestr\TiMO\Projekt\FinalApp\plotwidget.py", line 35, in plotData
+        Z[i].append( function(x1[i], x2[j]) )
+    IndexError: index 500 is out of bounds for axis 0 with size 500

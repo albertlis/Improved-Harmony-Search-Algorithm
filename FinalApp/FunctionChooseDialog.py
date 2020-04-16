@@ -14,7 +14,6 @@ class FunctionChooseDialog(Ui_dialog, QDialog):
 
     def __okButtonClicked(self):
         self.__chosenFunction = self.functionBox.currentText()
-        print(self.__chosenFunction)
         self.accept()
 
     def __cancelButtonClicked(self):
