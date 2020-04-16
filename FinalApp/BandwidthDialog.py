@@ -1,9 +1,11 @@
-from PyQt5.QtWidgets import QDoubleSpinBox, QHBoxLayout, QVBoxLayout, QLabel, QPushButton
+from PyQt5.QtWidgets import QDoubleSpinBox, QHBoxLayout, QVBoxLayout, QLabel, QPushButton, QStatusBar, QSpacerItem, \
+    QSizePolicy
 
 from ui.bandwidthDialog import Ui_bandwidthDialog
 from pprint import pprint
 
-#Na razie nie zabezpieczone, da sie to rozwiazac?
+
+# Na razie nie zabezpieczone, da sie to rozwiazac?
 
 
 class BandwidthDialog(Ui_bandwidthDialog):
@@ -24,7 +26,10 @@ class BandwidthDialog(Ui_bandwidthDialog):
         for var in variables:
             verticalLayout.addLayout(self.__addLineWithBandwidthParameters(var))
         self.calculateButton = self.__makeCalculateButton()
+        self.statusBar = QStatusBar()
+        verticalLayout.addSpacerItem(QSpacerItem(20, 50, QSizePolicy.Expanding, QSizePolicy.Expanding))
         verticalLayout.addWidget(self.calculateButton)
+        verticalLayout.addWidget(self.statusBar)
         bwDialog.setLayout(verticalLayout)
 
     def __makeCalculateButton(self):
@@ -53,9 +58,18 @@ class BandwidthDialog(Ui_bandwidthDialog):
         minValues = [minBox.value() for minBox in self.__minBoxes]
         maxValues = [maxBox.value() for maxBox in self.__maxBoxes]
         self.__minMaxValues = tuple(zip(minValues, maxValues))
+        if not self.__checkMinMaxIsCorrect():
+            return
         self.accept()
 
     def getMinMaxValues(self):
         # if '__minMaxValues' in locals():
         #     self.__minMaxValues = ((0.0, 0.0), (0.0, 0.0))
         return self.__minMaxValues
+
+    def __checkMinMaxIsCorrect(self):
+        for min, max in self.__minMaxValues:
+            if min >= max:
+                self.statusBar.showMessage("Min musi być większe niż max")
+                return False
+        return True
