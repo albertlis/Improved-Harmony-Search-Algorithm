@@ -28,14 +28,14 @@ class MainWindow(Ui_MainWin):
         fun = self.functionBox.text()
         iterations = self.iterationsBox.value()
         hms = self.hmsBox.value()
-        hmcrMin = self.hcmrMinBox.value()
+        hcmrMin = self.hcmrMinBox.value()
         hcmrMax = self.hcmrMaxBox.value()
         parMin = self.parMinBox.value()
         parMax = self.parMaxBox.value()
         bwMin = self.bwMinBox.value()
         bwMax = self.bwMaxBox.value()
         return fun, iterations, hms, \
-            hmcrMin, hcmrMax, parMin, \
+            hcmrMin, hcmrMax, parMin, \
             parMax, bwMin, bwMax
 
     def __openFunctionChooseDialog(self):
