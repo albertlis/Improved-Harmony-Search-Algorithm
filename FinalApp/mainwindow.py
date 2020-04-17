@@ -55,6 +55,7 @@ class MainWindow(Ui_MainWin):
             for i in range(len(self.ihs.getVariables())):
                 self.ihs.setBounds(i, minMaxBandwidthValues[i][0], minMaxBandwidthValues[i][1])
             self.ihs.doYourTask()
+            self.__printSolution()
             self.__makePlot()
 
     def __disableButtonAndShowMessage(self):
@@ -125,3 +126,8 @@ class MainWindow(Ui_MainWin):
         self.functionBox.textChanged.connect(self.__functionValueChanged)
         self.predefinedFunctionButton.clicked.connect(self.__openFunctionChooseDialog)
 
+    def __printSolution(self):
+        functionValue, variables = self.ihs.getOptimalSolution()
+        self.solutionBox.append(f'Wartość:\t{functionValue}')
+        for var in variables:
+            self.solutionBox.append(var)
