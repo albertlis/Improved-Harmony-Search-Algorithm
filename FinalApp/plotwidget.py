@@ -21,8 +21,9 @@ class PlotWidget(QWidget):
         self.canvas.figure.tight_layout()
         self.setLayout(vertical_layout)
 
-    def plotData(self, variables, function, lowBounds, upBounds):
+    def plotData(self, variables, function, lowBounds, upBounds, minMaxValues):
         assert len(variables) == 2
+        assert len(minMaxValues) == 2
         Z = []
         try:
             x1 = np.arange(lowBounds[0], upBounds[0], (upBounds[0] - lowBounds[0]) / 1000)
@@ -37,10 +38,13 @@ class PlotWidget(QWidget):
                 Z[i].append(function(x1[i], x2[j]))
 
         self.canvas.axes.clear()
-        im = self.canvas.axes.imshow(Z, interpolation='bilinear', origin='lower', extent=(0, 1, 0, 1))
+        im = self.canvas.axes.imshow(Z, interpolation='bilinear', origin='lower',
+                                     extent=(minMaxValues[0][0], minMaxValues[0][1],
+                                             minMaxValues[1][0], minMaxValues[1][1]))
         im.set_alpha(0.5)
         CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
-        self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.8)
+        self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.95)
+        self.canvas.figure.tight_layout()
         self.canvas.axes.grid(True)
         self.canvas.draw()

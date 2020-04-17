@@ -14,6 +14,7 @@ class MainWindow(Ui_MainWin):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.boxesValueOffset = 0.000001
+        self.__minMaxBandwidthValues = (0, 0)
 
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
@@ -22,7 +23,8 @@ class MainWindow(Ui_MainWin):
 
     def __makePlot(self):
         self.plotWidget.plotData(self.ihs._variables, self.ihs._objective_function,
-                                 self.ihs._varLowerBounds, self.ihs._varUpperBounds)
+                                 self.ihs._varLowerBounds, self.ihs._varUpperBounds,
+                                 self.__minMaxBandwidthValues)
 
     def __readParameters(self):
         fun = self.functionBox.text()
@@ -51,9 +53,9 @@ class MainWindow(Ui_MainWin):
         bandwidthDialog = BandwidthDialog()
         bandwidthDialog.setupUi(self.ihs.getVariables())
         if bandwidthDialog.exec() == QDialog.Accepted:
-            minMaxBandwidthValues = bandwidthDialog.getMinMaxValues()
+            self.__minMaxBandwidthValues = bandwidthDialog.getMinMaxValues()
             for i in range(len(self.ihs.getVariables())):
-                self.ihs.setBounds(i, minMaxBandwidthValues[i][0], minMaxBandwidthValues[i][1])
+                self.ihs.setBounds(i, self.__minMaxBandwidthValues[i][0], self.__minMaxBandwidthValues[i][1])
             self.ihs.doYourTask()
             self.__printSolution()
             self.__makePlot()
