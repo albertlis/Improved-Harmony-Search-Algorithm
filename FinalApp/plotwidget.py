@@ -18,6 +18,7 @@ class PlotWidget(QWidget):
         vertical_layout.addWidget(toolbar)
 
         self.canvas.axes = self.canvas.figure.add_subplot(111)
+        self.canvas.figure.tight_layout()
         self.setLayout(vertical_layout)
 
     def plotData(self, variables, function, lowBounds, upBounds):

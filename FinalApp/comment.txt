@@ -24,12 +24,10 @@ w języku polskim.
 
 Do zrobienia:
 1. Dodać wyrysowywanie punktów na wykresie.
-2. Dokończyć to okno z rozwiązaniami.
 
 Error List:
 1. plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
 Dodałem try except ale trzeba się zastanowić co z tym zrobić
-2. W okienkach powinna być możliwosć wpisania wiecej niż 2 cyfr po przecinku. | Done
 3. Pierwsza z funkcji powoduje wyświetlenie "B" w informacji pod functionBox
 4. Dla drugiej przy parametrach x1 min = 0, x1max = 2, x2min = 1, x2max = 2 otrzymuję:
     File "E:\Materialy\Magisterskie\1 Semestr\TiMO\Projekt\FinalApp\plotwidget.py", line 35, in plotData

@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWin(object):
     def setupUi(self, MainWin):
         MainWin.setObjectName("MainWin")
-        MainWin.resize(956, 533)
+        MainWin.resize(934, 603)
         self.centralwidget = QtWidgets.QWidget(MainWin)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -195,6 +195,11 @@ class Ui_MainWin(object):
         self.label_12.setObjectName("label_12")
         self.verticalLayout_3.addWidget(self.label_12)
         self.solutionBox = QtWidgets.QTextEdit(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.solutionBox.sizePolicy().hasHeightForWidth())
+        self.solutionBox.setSizePolicy(sizePolicy)
         self.solutionBox.setObjectName("solutionBox")
         self.verticalLayout_3.addWidget(self.solutionBox)
         self.verticalLayout_4.addLayout(self.verticalLayout_3)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>956</width>
-    <height>533</height>
+    <width>934</width>
+    <height>603</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -419,7 +419,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="solutionBox"/>
+         <widget class="QTextEdit" name="solutionBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
