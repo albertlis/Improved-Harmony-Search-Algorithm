@@ -39,4 +39,5 @@ class PlotWidget(QWidget):
         self.canvas.axes.clear()
         CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
+        self.canvas.axes.grid(True)
         self.canvas.draw()
