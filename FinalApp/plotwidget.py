@@ -37,7 +37,10 @@ class PlotWidget(QWidget):
                 Z[i].append(function(x1[i], x2[j]))
 
         self.canvas.axes.clear()
+        im = self.canvas.axes.imshow(Z, interpolation='bilinear', origin='lower', extent=(0, 1, 0, 1))
+        im.set_alpha(0.5)
         CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
+        self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.8)
         self.canvas.axes.grid(True)
         self.canvas.draw()
