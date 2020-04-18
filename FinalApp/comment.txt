@@ -35,3 +35,5 @@ Dodałem try except ale trzeba się zastanowić co z tym zrobić
         f = self.compute(self, new) - (Warning) unexpected argument
 7. Wykresy są obrócone x2 jest na dole x1 u góry
 8. Przy wielu wykresach colorbar się nie usuwa
+
+Naprawiłem 4,5 ale coś tam jest powalone bo się indeksy nie zgadzają, więc nadal wiersja robocza

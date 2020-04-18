@@ -22,10 +22,10 @@ class PlotWidget(QWidget):
     def plotData(self, variables, function, lowBounds, upBounds, minMaxValues, trace):
         assert len(variables) == 2
         assert len(minMaxValues) == 2
-        x1T, x2T = self.__makeTraceVectors(trace)
+        x1T, x2T = self.__makeTraceVectors(trace, variables)
         try:
-            x1 = np.arange(lowBounds[0], upBounds[0], (upBounds[0] - lowBounds[0]) / 1000)
-            x2 = np.arange(lowBounds[1], upBounds[1], (upBounds[0] - lowBounds[0]) / 1000)
+            x1 = np.linspace(lowBounds[0], upBounds[0], 100)
+            x2 = np.linspace(lowBounds[1], upBounds[1], 100)
         except ZeroDivisionError as e:
             print(e)
             return
@@ -34,18 +34,18 @@ class PlotWidget(QWidget):
 
     def __makeContourVectors(self, function, x1, x2):
         Z = []
-        X1, X2 = np.meshgrid(x1, x2)
-        for i in range(1000):
+        X1, X2 = np.meshgrid(x2, x1)
+        for i in range(100):
             Z.append([])
-            for j in range(1000):
+            for j in range(100):
                 Z[i].append(function(x1[i], x2[j]))
         return X1, X2, Z
 
     def __makePlot(self, X1, X2, Z, minMaxValues, variables, x1T, x2T):
         self.canvas.axes.clear()
         im = self.canvas.axes.imshow(Z, interpolation='bilinear', origin='lower',
-                                     extent=(minMaxValues[0][0], minMaxValues[0][1],
-                                             minMaxValues[1][0], minMaxValues[1][1]))
+                                     extent=(minMaxValues[1][0], minMaxValues[1][1],
+                                             minMaxValues[0][0], minMaxValues[0][1]))
         im.set_alpha(0.5)
         CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
@@ -57,9 +57,9 @@ class PlotWidget(QWidget):
         self.canvas.figure.tight_layout()
         self.canvas.draw()
 
-    def __makeTraceVectors(self, trace):
+    def __makeTraceVectors(self, trace, variables):
         x1T = np.empty(len(trace))
         x2T = np.empty(len(trace))
         for i, row in enumerate(trace):
-            x1T[i], x2T[i] = row['x1'], row['x2']
+            x1T[i], x2T[i] = row[variables[0]], row[variables[1]]
         return x1T, x2T
