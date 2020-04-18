@@ -39,7 +39,7 @@ class IHSAlgorithm:
         self._variables = []
         self._varUpperBounds = []
         self._varLowerBounds = []
-        self._f = []
+        self._f = np.empty(self._HMS)
         self._isContinuous = True
         self._generation = 0
         self._objective_function = lambda X: sum(X)
@@ -47,7 +47,7 @@ class IHSAlgorithm:
         self._trace = []
 
     def initializeHM(self):
-        self._HM = []
+        self._f = np.empty(self._HMS)
         for i in range(self._HMS):
             X = {}
             for var in range(len(self._variables)):
@@ -57,55 +57,53 @@ class IHSAlgorithm:
                                       )
                           })
             self._HM.append(X)
-            self._f.append(self.compute(self, X))
+            self._f[i] = self.compute(self, X)
 
     def improvise(self):
         new = {}
-        for i in range(len(self._variables)):
-
+        for i, variables in enumerate(self._variables):
+            upperBound = self._varUpperBounds[i]
+            lowerBound = self._varLowerBounds[i]
             # memoryConsideration
             if uniform(0, 1) < self._HMCR:
-                D1 = int(uniform(0, 1) * self._HMS)
-                D2 = self._HM[D1].get(self._variables[i])
-                new.update({self._variables[i]: D2})
+                D1 = int(uniform(0, self._HMS))
+                D2 = self._HM[D1].get(variables)
+                new.update({variables: D2})
 
                 # pitchAdjustment
                 if uniform(0, 1) < self._PAR:
                     if uniform(0, 1) < 0.5:
-                        D3 = (new.get(self._variables[i]) -
-                              uniform(0, 1) * self._BW
+                        D3 = (new.get(variables) -
+                              uniform(0, self._BW)
                               )
-                        if self._varLowerBounds[i] <= D3:
-                            new.update({self._variables[i]: D3})
+                        if lowerBound <= D3:
+                            new.update({variables: D3})
                     else:
-                        D3 = (new.get(self._variables[i]) +
-                              uniform(0, 1) * self._BW
+                        D3 = (new.get(variables) +
+                              uniform(0, self._BW)
                               )
-                        if self._varUpperBounds[i] >= D3:
-                            new.update({self._variables[i]: D3})
+                        if upperBound >= D3:
+                            new.update({variables: D3})
 
             else:
-                new.update({self._variables[i]:
-                                uniform(self._varLowerBounds[i],
-                                        self._varUpperBounds[i]
-                                        )})
+                new.update({variables: uniform(lowerBound,
+                                                upperBound )})
 
         return new
 
     def updateHM(self, new):
         f = self.compute(self, new)
         # for finding minimum
-        fMaxValue = max(self._f)
+        fMaxValue = np.amax(self._f)
         if f < fMaxValue:
-            for i in range(len(self._f)):
-                if fMaxValue == self._f[i]:
+            for i, value in enumerate(self._f):
+                if fMaxValue == value:
                     self._f[i] = f
                     self._HM[i] = new
                     break
 
     def _findTrace(self):
-        f = np.array(self._f)
-        index = int(np.argmin(f))
+        index = np.argmin(self._f)
         variables = self._HM[index]
         if variables not in self._trace:
             self._trace.append(variables)
@@ -145,8 +143,7 @@ class IHSAlgorithm:
         self._BW = self._BWmax * exp(self._generation * c)
 
     def getOptimalSolution(self):
-        f = np.array(self._f)
-        index = int(np.argmin(f))
+        index = np.argmin(self._f)
         functionValue = self._f[index]
         variables = self._HM[index]
         preparedVariables = []
