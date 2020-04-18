@@ -109,6 +109,7 @@ class IHSAlgorithm:
         variables = self._HM[index]
         if variables not in self._trace:
             self._trace.append(variables)
+
         # for finding maximum
         '''
         fMaxValue = min(self._f)
