@@ -50,10 +50,9 @@ class IHSAlgorithm:
         self._f = np.empty(self._HMS)
         for i in range(self._HMS):
             X = {}
-            for var in range(len(self._variables)):
-                X.update({self._variables[var]:
-                              uniform(self._varLowerBounds[var],
-                                      self._varUpperBounds[var]
+            for counter, var in enumerate(self._variables):
+                X.update({var: uniform(self._varLowerBounds[counter],
+                                      self._varUpperBounds[counter]
                                       )
                           })
             self._HM.append(X)
