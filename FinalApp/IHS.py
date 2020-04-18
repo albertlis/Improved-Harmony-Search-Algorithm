@@ -44,6 +44,7 @@ class IHSAlgorithm:
         self._generation = 0
         self._objective_function = lambda X: sum(X)
         self.compute = lambda X: self._objective_function(X)
+        self._trace = []
 
     def initializeHM(self):
         self._HM = []
@@ -102,6 +103,12 @@ class IHSAlgorithm:
                     self._HM[i] = new
                     break
 
+    def _findTrace(self):
+        f = np.array(self._f)
+        index = int(np.argmin(f))
+        variables = self._HM[index]
+        if variables not in self._trace:
+            self._trace.append(variables)
         # for finding maximum
         '''
         fMaxValue = min(self._f)
@@ -122,6 +129,7 @@ class IHSAlgorithm:
             self._updateBW()
             new = self.improvise()  # (self._generation - 1) % self._HMS
             self.updateHM(new)
+            self._findTrace()
 
     def _updateHMCR(self):
         self._HMCR = (self._HMCRmax - self._generation *
@@ -148,3 +156,6 @@ class IHSAlgorithm:
                 print(e)
                 return
         return functionValue, preparedVariables
+
+    def getTrace(self):
+        return self._trace
