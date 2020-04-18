@@ -22,9 +22,6 @@ w języku polskim.
     __functionValueChanged(self): # Wiesz jak tu zrobić default color? ----> Najprościej w css | jednak się nie da bo
     nadpisujesz w programie.
 
-Do zrobienia:
-1. Dodać wyrysowywanie punktów na wykresie.
-
 Error List:
 1. plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
 Dodałem try except ale trzeba się zastanowić co z tym zrobić
@@ -37,3 +34,4 @@ Dodałem try except ale trzeba się zastanowić co z tym zrobić
 6.     def updateHM(self, new):
         f = self.compute(self, new) - (Warning) unexpected argument
 7. Wykresy są obrócone x2 jest na dole x1 u góry
+8. Przy wielu wykresach colorbar się nie usuwa
