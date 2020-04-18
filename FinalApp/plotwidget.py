@@ -21,9 +21,14 @@ class PlotWidget(QWidget):
         self.canvas.figure.tight_layout()
         self.setLayout(vertical_layout)
 
-    def plotData(self, variables, function, lowBounds, upBounds, minMaxValues):
+    def plotData(self, variables, function, lowBounds, upBounds, minMaxValues, trace):
         assert len(variables) == 2
         assert len(minMaxValues) == 2
+        x1T = np.empty(len(trace))
+        x2T = np.empty(len(trace))
+        for i, row in enumerate(trace):
+            x1T[i], x2T[i] = row['x1'], row['x2']
+        # print(x1T, x2T)
         Z = []
         try:
             x1 = np.arange(lowBounds[0], upBounds[0], (upBounds[0] - lowBounds[0]) / 1000)
@@ -45,8 +50,9 @@ class PlotWidget(QWidget):
         CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
         self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.95)
+        self.canvas.axes.plot(x2T, x1T, marker=".")
         self.canvas.axes.grid(True)
-        self.canvas.axes.set_xlabel(variables[0])
-        self.canvas.axes.set_ylabel(variables[1])
+        self.canvas.axes.set_xlabel(variables[1])
+        self.canvas.axes.set_ylabel(variables[0])
         self.canvas.figure.tight_layout()
         self.canvas.draw()

@@ -24,7 +24,7 @@ class MainWindow(Ui_MainWin):
     def __makePlot(self):
         self.plotWidget.plotData(self.ihs._variables, self.ihs._objective_function,
                                  self.ihs._varLowerBounds, self.ihs._varUpperBounds,
-                                 self.__minMaxBandwidthValues)
+                                 self.__minMaxBandwidthValues, self.__trace)
 
     def __readParameters(self):
         fun = self.functionBox.text()
@@ -58,8 +58,7 @@ class MainWindow(Ui_MainWin):
                 self.ihs.setBounds(i, self.__minMaxBandwidthValues[i][0], self.__minMaxBandwidthValues[i][1])
             self.ihs.doYourTask()
             self.__printSolution()
-            trace = self.ihs.getTrace()
-            pprint(trace)
+            self.__trace = self.ihs.getTrace()
             self.__makePlot()
 
     def __disableButtonAndShowMessage(self):
