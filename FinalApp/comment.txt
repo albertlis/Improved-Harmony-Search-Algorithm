@@ -25,7 +25,6 @@ w języku polskim.
 Error List:
 1. plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
 Dodałem try except ale trzeba się zastanowić co z tym zrobić
-3. Pierwsza z funkcji powoduje wyświetlenie "B" w informacji pod functionBox
 4. Dla drugiej przy parametrach x1 min = 0, x1max = 2, x2min = 1, x2max = 2 otrzymuję:
     File "E:\Materialy\Magisterskie\1 Semestr\TiMO\Projekt\FinalApp\plotwidget.py", line 35, in plotData
         Z[i].append( function(x1[i], x2[j]) )
