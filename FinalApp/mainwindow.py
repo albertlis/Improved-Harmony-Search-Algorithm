@@ -18,7 +18,7 @@ class MainWindow(Ui_MainWin):
 
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
-        self.functionBox.setText("2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
+        self.functionBox.setPlaceholderText("np. pow(x1,2)+log(xyx, e)")
         self.__connectSlots()
 
     def __makePlot(self):
@@ -106,15 +106,17 @@ class MainWindow(Ui_MainWin):
             self.__enableButtonAndClearMessage()
 
     def __functionValueChanged(self):
-        string, self.__err = evaluateError(self.functionBox.text())
-        if self.__err != 0:
+        string, err = evaluateError(self.functionBox.text())
+        if err == 2:
             self.label_function_error.setStyleSheet("QLabel { color : red; }")
             self.nextButton.setDisabled(True)
             string = string[0]
-        else:
-            # Wiesz jak tu zrobić default color?
+        elif err == 0:
             self.label_function_error.setStyleSheet("QLabel { color : white; }")
             self.nextButton.setEnabled(True)
+        else:
+            self.label_function_error.setStyleSheet("QLabel { color : orange; }")
+            self.nextButton.setDisabled(True)
 
         self.label_function_error.setText(QtCore.QCoreApplication.translate("MainWin", string))
 

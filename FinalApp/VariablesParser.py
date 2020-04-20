@@ -26,7 +26,7 @@ class VariablesParser:
         self.__variables = []
         for var in constants.keys():
             if self.__constants.get(var) != None:
-                raise Exception("Zmienna " + var + " jest juz zdefiniowana.")
+                raise Exception("Zmienna " + var + " jest juz zdefiniowana!!")
             self.__constants[var] = constants[var]
         self.__deleteWhitespaces()
     
@@ -35,7 +35,7 @@ class VariablesParser:
     def getVariables(self):
         self.__parse()
         if self.__hasNext():
-            raise Exception("Unexpected character found: '" + self.__wrongExp + "'")
+            raise Exception("Nioczekiwany znak: '" + self.__wrongExp + "'!!")
         return self.__variables
     
     
@@ -77,6 +77,7 @@ class VariablesParser:
         self.__parseFunctions()
         char = self.__currentChar(1)
         if char == '^':
+            raise Exception("Zamiast x^y użyj pow(x, y)!!")
             self.__index += 1
             self.__parsePowering()
         else:
@@ -106,12 +107,12 @@ class VariablesParser:
         # Tu można dorzucić arctan itp
         
         if char != 0:
-            if not self.__parseBrackets(numOfArgs):
-                raise Exception("function should have brackets")
+            if not self.__parseBrackets(numOfArgs, char):
+                raise Exception("Parametry funkcji " + char + " w nawiasy!!")
         else:
-            self.__parseBrackets(1)
+            self.__parseBrackets(1, None)
         
-    def __parseBrackets(self, numOfArgs):
+    def __parseBrackets(self, numOfArgs, functionName):
         char = self.__currentChar(1)
         if char == '(':
             self.__index += 1
@@ -119,10 +120,10 @@ class VariablesParser:
                 self.__parseAddition()
                 if i < numOfArgs - 1:
                     if self.__currentChar(1) != ',':
-                        raise Exception("To few arguments")
+                        raise Exception("Za mało argumenów w funkcji " + functionName + "!!")
                     self.__index += 1
             if self.__currentChar(1) != ')':
-                raise Exception("No closing bracket found")
+                raise Exception("Nie znaleziono zamykającego nawiasu!!")
             self.__index += 1
             return True
         else:
@@ -133,7 +134,7 @@ class VariablesParser:
         char = self.__currentChar(1)
         if char == '-':
             self.__index += 1
-            self.__parseBrackets(1)
+            self.__parseBrackets(1, '')
         else:
             self.__parseValue()
             
@@ -156,7 +157,7 @@ class VariablesParser:
                 value += char
             elif char == '.':
                 if decimal_found:
-                    raise Exception("Extra period")
+                    raise Exception("Za dużo kropek!!")
                 decimal_found = True
                 value += '.'
             else:
@@ -165,7 +166,7 @@ class VariablesParser:
         
         if len(value) == 0:
             if char == '':
-                raise Exception("Unexpected end found")
+                raise Exception("Nieoczekiwane zakończenie wzoru!!")
             else:
                 #to jest raczej wykluczone przez __parseValue() ...
                 raise Exception("There should be a number")
@@ -196,15 +197,20 @@ class VariablesParser:
     
 #ta funkcja do dopasowania do programu
 def evaluateError(expression, constants={}):
-    try:
-        p = VariablesParser(expression, constants)
-        variables = p.getVariables()
-        outStr = ''
-        for var in variables:
-            outStr += var
-            if var != variables[len(variables) - 1]:
-                outStr += ', '
-        if outStr != '': return 'Wykryte zmienne: ' + outStr, 0
-        else: return 'Brak zmiennych', 1
-    except Exception as ex:
-        return ex.args, 2
+    outputStr, code = "Nie podano funkcji", 1
+    if expression != '':
+        outputStr, code = "Robie", 2
+        try:
+            p = VariablesParser(expression, constants)
+            variables = p.getVariables()
+            outStr = ''
+            
+            for var in variables:
+                outStr += var
+                if var != variables[len(variables) - 1]:
+                    outStr += ', '
+            if outStr != '': outputStr, code =  'Wykryte zmienne: ' + outStr, 0
+            else: outputStr, code = 'Brak zmiennych', 1
+        except Exception as ex:
+            outputStr, code = ex.args, 2
+    return outputStr, code
