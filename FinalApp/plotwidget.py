@@ -45,7 +45,8 @@ class PlotWidget(QWidget):
         self.canvas.axes.clear()
         im = self.canvas.axes.imshow(Z, interpolation='bilinear', origin='lower',
                                      extent=(minMaxValues[1][0], minMaxValues[1][1],
-                                             minMaxValues[0][0], minMaxValues[0][1]))
+                                             minMaxValues[0][0], minMaxValues[0][1]),
+                                     aspect='auto')
         im.set_alpha(0.5)
         CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
