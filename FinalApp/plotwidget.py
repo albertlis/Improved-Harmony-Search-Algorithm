@@ -18,6 +18,7 @@ class PlotWidget(QWidget):
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         self.canvas.figure.tight_layout()
         self.setLayout(vertical_layout)
+        self._cbar = None
 
     def plotData(self, variables, function, lowBounds, upBounds, minMaxValues, trace):
         assert len(variables) == 2
@@ -50,7 +51,11 @@ class PlotWidget(QWidget):
         im.set_alpha(0.5)
         CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
-        self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.95)
+        if self._cbar is None:
+            self._cbar = self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.95)
+        else:
+            self._cbar.remove()
+            self._cbar = self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.95)
         self.canvas.axes.plot(x2T, x1T, marker=".", c="k")
         self.canvas.axes.grid(True)
         self.canvas.axes.set_xlabel(variables[1])
