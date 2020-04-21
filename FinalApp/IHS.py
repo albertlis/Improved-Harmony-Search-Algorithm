@@ -8,15 +8,11 @@ Created on Thu Mar 26 17:10:54 2020
 from pprint import pprint
 
 import numpy as np
-
 '''
 
     IHSAlgorithm to klasa obsługująca całą logikę algorytmu z założeniem,
 że zostały do niej wprowadzone dobre dane (zapewnia to Child Class
 I_IHSAlgorithm)
-
-updateHM() - przyjmuje parametr curr który jest nieużywany
-
 
 '''
 
@@ -35,28 +31,32 @@ class IHSAlgorithm:
         self._PARmin = 0.1
         self._BWmax = 10  # Band Width
         self._BWmin = 0.0001
-        self._Tmax = 1000  # Max Iteration Times
+        self._NumOfIterations = 1000  # Max Iteration Times
         self._variables = []
         self._varUpperBounds = []
         self._varLowerBounds = []
         self._f = np.empty(self._HMS)
-        self._isContinuous = True
         self._generation = 0
         self._objective_function = lambda X: sum(X)
         self.compute = lambda X: self._objective_function(X)
         self._trace = []
-
+                
     def initializeHM(self):
-        self._f = np.empty(self._HMS)
-        for i in range(self._HMS):
+        def catchZeroDivision(i):
             X = {}
             for counter, var in enumerate(self._variables):
-                X.update({var: uniform(self._varLowerBounds[counter],
-                                      self._varUpperBounds[counter]
-                                      )
-                          })
+                X.update({var: uniform(self._varLowerBounds[counter], self._varUpperBounds[counter])})
             self._HM.append(X)
-            self._f[i] = self.compute(self, X)
+            try:
+                self._f[i] = self.compute(self, X)
+            except ZeroDivisionError or RuntimeWarning:
+                print('i caughed ZeroDiv in IHS.initializeHM')
+                catchZeroDivision(i)
+                
+        self._f = np.empty(self._HMS)
+        for i in range(self._HMS):
+            catchZeroDivision(i)
+                
 
     def improvise(self):
         new = {}
@@ -107,31 +107,27 @@ class IHSAlgorithm:
         if variables not in self._trace:
             self._trace.append(variables)
 
-        # for finding maximum
-        '''
-        fMaxValue = min(self._f)
-        if f < fMaxValue:
-            for i in range(len(self._f)):
-                if fMaxValue == self._f[i]:
-                    self._f[i] = f
-                    self._HM[i] = new
-                    break
-                    '''
-
     def doYourTask(self):
+        def catchZeroDivision():
+            try:
+                new = self.improvise()  # (self._generation - 1) % self._HMS
+                self.updateHM(new)
+            except ZeroDivisionError or RuntimeWarning:
+                print('i caughed ZeroDiv in IHS.updateHM')
+                catchZeroDivision()
+                
         self.initializeHM()
-        while self._generation < self._Tmax:
+        while self._generation < self._NumOfIterations:
             self._generation += 1
             self._updateHMCR()
             self._updatePAR()
             self._updateBW()
-            new = self.improvise()  # (self._generation - 1) % self._HMS
-            self.updateHM(new)
+            catchZeroDivision()
             self._findTrace()
 
     def _updateHMCR(self):
         self._HMCR = (self._HMCRmax - self._generation *
-                      (self._HMCRmax - self._HMCRmin) / self._Tmax)
+                      (self._HMCRmax - self._HMCRmin) / self._NumOfIterations)
 
     def _updatePAR(self):
         self._PAR = (self._PARmin + self._generation *

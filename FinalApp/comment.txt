@@ -5,20 +5,6 @@ choć był on trochę inaczej skonstruowany) ----> nie pamiętam o co chodziło 
 Ew można przenieść inicjalizację do __init__ wtedy powinno być cacy (chyba bo serio nie pamiętam
 o co chodziło). Na razie przeniosłem ale nie usuwaj komentów.
 
-    Fajnie jakby poniższe funkcje można było po prostu kliknąć
-w licie rozwijanej w polu funkcji. Dopisać więcej.
-Można zrobić zczytywanie z pliku .txt po linijce zapisane tam funkcje.
-Ciekawe funkcje:
-    pow(16*(x*y)*(1-x)*(1-y)*sin(9*pi*x)*sin(9*pi*y),2)*(-1)
-
-    W mainwindow.py inaczej można zrobić te metody __...ValueChanged, które dopasowują
-to żeby min < max, bo czasami jest to irytujące. Ja bym raczej zablokował przycisk akceptacji
-w przypadku kiedy min > max i dał o tym jakąs informacęję.
-Jeli Ci to opowiada to mogę zaimplementować, bo już to robiłem w mainwindow.
-
-    Ew. można zmienić tak, żeby wyjątki zwracane przez Variable Parser
-w języku polskim.
-
     __functionValueChanged(self): # Wiesz jak tu zrobić default color? ----> Najprościej w css | jednak się nie da bo
     nadpisujesz w programie.
 

@@ -10,11 +10,6 @@ Created on Mon Mar 23 09:27:20 2020
 
     Klasa I_IHSAlgorithm czysci wejscie z GUI i wprowadza do IHSAlgorithm
 
-    Trzeba jeszcze ogarnąć, czy na pewno wpisałem dobre granice dla parametrów
-w setterach
-    
-    W setterach sprawdzać, czy dobry typ danych wprowadzony (czy nie stringi)
-
     Teraz jeszcze próbuję ogarnąć jak zapisać HarmonyMemory (__HM), żeby można
 było jakos logicznie je iterować (I mean sth. like self.__variables['x1'][1])
 (patrz: implementacja I_IHSAlgorithm.setFunction() -> przekazywanie argumentów
@@ -33,7 +28,7 @@ class I_IHSAlgorithm(IHSAlgorithm):
         ----------
         parameters : list of algortihm parameter
             [0] = function ( eg. x+1*sin(2*pi*x2) )
-            [1] = Tmax - Number Of Iterations
+            [1] = NumOfIterations - Number Of Iterations
             [2] = HMS - Hmarmony Memory Size
             [3] = HMCRmin - Minimum Harmony Memory Considering Rate
                     - between [0; 1]
@@ -57,7 +52,7 @@ class I_IHSAlgorithm(IHSAlgorithm):
         self.setPAR(parameters[5:7])
         self.setBW(parameters[7:9])
         self.setHMS(parameters[2])
-        self.setTmax(parameters[1])
+        self.setNumOfIterations(parameters[1])
         self.setVariables(parameters[0])
         self._setDefaultBounds()
         self.setFunction(parameters[0])
@@ -72,8 +67,8 @@ class I_IHSAlgorithm(IHSAlgorithm):
     def setBW(self, BW):
         self._setPair('BW', 1e-20, 1e20, BW)
 
-    def setTmax(self, Tmax):
-        self._setInteger('Tmax', Tmax)
+    def setNumOfIterations(self, NumOfIterations):
+        self._setInteger('NumOfIterations', NumOfIterations)
 
     def setHMS(self, HMS):
         self._setInteger('HMS', HMS)
@@ -126,22 +121,8 @@ class I_IHSAlgorithm(IHSAlgorithm):
             if var != self._variables[-1]:
                 strOfVars += ', '
                 strOfVarsFinal += ', '
-        try:
-            self._objective_function = eval('lambda '
-                                            + strOfVars + ': ' + string)
-            self.compute = eval(
-                'lambda self, X: self._objective_function(%s)' % strOfVarsFinal
-            )
-        except SyntaxError:
-            # messageBox
-            print('Nieprawidłowa funkcja')
-        except NameError as err:
-            # messageBox
-            print('Niezdefiniowana zmienna: "' + str(err.args) + '"')
-        except Exception as err:
-            # messageBox
-            print(err.args)
-            raise
+        self._objective_function = eval('lambda ' + strOfVars + ': ' + string)
+        self.compute = eval('lambda self, X: self._objective_function(%s)' % strOfVarsFinal)
 
     def setBounds(self, index, lower, upper):
         if len(self._varLowerBounds) <= index:
@@ -161,9 +142,9 @@ class I_IHSAlgorithm(IHSAlgorithm):
 
 
 if __name__ == "__main__":
-    def initIHS(HMS, HMCR, PAR, BW, Tmax, function):
+    def initIHS(HMS, HMCR, PAR, BW, NumOfIterations, function):
         # HMCR = [min, max] ...
-        ihs = I_IHSAlgorithm([function, Tmax, HMS, HMCR[0], HMCR[1], PAR[0],
+        ihs = I_IHSAlgorithm([function, NumOfIterations, HMS, HMCR[0], HMCR[1], PAR[0],
                               PAR[1], BW[0], BW[1]])
         ihs.doYourTask()
         # dodac funkcje zwracania wynikow.
@@ -171,9 +152,9 @@ if __name__ == "__main__":
         return ihs
 
 
-    Tmax = 200000
+    NumOfIterations = 200000
 
-    ihs = initIHS(10, [0.85, 0.95], [0.2, 0.8], [0.00001, 0.2], Tmax,
+    ihs = initIHS(10, [0.85, 0.95], [0.2, 0.8], [0.00001, 0.2], NumOfIterations,
                   "2 * pow(x1, 2) + pow(x2 - 3, 2) + 5")
 
     print(ihs._f)
