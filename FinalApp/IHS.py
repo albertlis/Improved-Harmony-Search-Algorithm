@@ -43,12 +43,12 @@ class IHSAlgorithm:
                 
     def initializeHM(self):
         def catchZeroDivision(i):
-            X = {}
+            inputVector = {}
             for counter, var in enumerate(self._variables):
-                X.update({var: uniform(self._varLowerBounds[counter], self._varUpperBounds[counter])})
-            self._HM.append(X)
+                inputVector.update({var: uniform(self._varLowerBounds[counter], self._varUpperBounds[counter])})
+            self._HM.append(inputVector)
             try:
-                self._f[i] = self.compute(self, X)
+                self._f[i] = self.compute(self, inputVector)
             except ZeroDivisionError or RuntimeWarning:
                 print("Nie wolno '/0' - Nununu")
                 raise

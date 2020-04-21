@@ -27,7 +27,7 @@ class PlotWidget(QWidget):
                 x1 = np.linspace(lowBounds[0], upBounds[0], 100)
                 x2 = np.linspace(lowBounds[1], upBounds[1], 100)
             except ZeroDivisionError as e:
-                print(e)
+                # print(e)
                 return
             X1, X2, Z = self.__makeContourVectors(function, x1, x2)
             self.__makePlot(X1, X2, Z, minMaxValues, variables, x1T, x2T)

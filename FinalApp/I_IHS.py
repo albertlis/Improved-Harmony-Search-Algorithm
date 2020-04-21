@@ -112,7 +112,7 @@ class I_IHSAlgorithm(IHSAlgorithm):
     def getVariables(self):
         return self._variables
 
-    def setFunction(self, string):
+    def setFunction(self, inputBoxExpression):
         strOfVars = ''
         strOfVarsFinal = ''
         for var in self._variables:
@@ -121,7 +121,7 @@ class I_IHSAlgorithm(IHSAlgorithm):
             if var != self._variables[-1]:
                 strOfVars += ', '
                 strOfVarsFinal += ', '
-        self._objective_function = eval('lambda ' + strOfVars + ': ' + string)
+        self._objective_function = eval('lambda ' + strOfVars + ': ' + inputBoxExpression)
         self.compute = eval('lambda self, X: self._objective_function(%s)' % strOfVarsFinal)
 
     def setBounds(self, index, lower, upper):

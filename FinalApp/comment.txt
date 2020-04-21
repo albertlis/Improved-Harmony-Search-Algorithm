@@ -9,18 +9,7 @@ o co chodziło). Na razie przeniosłem ale nie usuwaj komentów.
     nadpisujesz w programie.
 
 Error List:
-1. plotData() z plotwidget.py rzuca wyjątkiem ZeroDivisionError gdy nie wpiszemy parametrów w BandwidthDialog.
-Dodałem try except ale trzeba się zastanowić co z tym zrobić
-4. Dla drugiej przy parametrach x1 min = 0, x1max = 2, x2min = 1, x2max = 2 otrzymuję:
-    File "E:\Materialy\Magisterskie\1 Semestr\TiMO\Projekt\FinalApp\plotwidget.py", line 35, in plotData
-        Z[i].append( function(x1[i], x2[j]) )
-    IndexError: index 500 is out of bounds for axis 0 with size 500
-5. Dla defaultowej przy x1max = 1, x2max = 2, reszta 0 też się wywala | Wychodzi na to że muszą mieć ten sam zakres
-6.     def updateHM(self, new):
-        f = self.compute(self, new) - (Warning) unexpected argument
-7. Wykresy są obrócone x2 jest na dole x1 u góry
-
-Naprawiłem 4,5 ale coś tam jest powalone bo się indeksy nie zgadzają, więc nadal wiersja robocza
+1. Da się przejść dalej bez funkcji
 
 Tam numpy gdzies wyrzyca warning przy dzieleniu przez 0, ale to tylko komunikat z ktorym mozna zyc
 ,ale dla pewnosci sprawdz, czy to nie jest ta rzecz, przez którą ci te indeksy nie pasuja, bo
