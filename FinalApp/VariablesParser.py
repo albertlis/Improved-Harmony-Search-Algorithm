@@ -9,12 +9,16 @@ Created on Fri Mar 27 14:24:13 2020
 from math import *
 
 
+
 #to żeby odczytywało funkcje zapisywane na rozne sposoby
 def root(a, b): return pow(a, 1/b)
 def ctan(x): return 1/tan(x)
 def ctg(x): return ctan(x)
 def tg(x): return tan(x)
 def ln(x): return log(x)
+
+class VP_WrongExpression(Exception):
+    pass
 
 class VariablesParser:
     def __init__(self, string, constants={}):
@@ -25,19 +29,32 @@ class VariablesParser:
             'e' : 2.718281828459045 }
         self.__variables = []
         for var in constants.keys():
-            if self.__constants.get(var) != None:
-                raise Exception("Zmienna " + var + " jest juz zdefiniowana!!")
-            self.__constants[var] = constants[var]
+            if self.__constants.get(var) == None:
+                self.__constants[var] = constants[var]
         self.__deleteWhitespaces()
     
-    
-    #throws exceptions if wrong expression
     def getVariables(self):
         self.__parse()
-        if self.__hasNext():
-            raise Exception("Nioczekiwany znak: '" + self.__wrongExp + "'!!")
+        
+        if self.__hasNext() and self.__index == 0:
+            raise VP_WrongExpression("Nioczekiwany znak: '" + self.__currentChar(1) + "'")
+        elif self.__hasNext():
+            ind = self.__index
+            while True:
+                newExp = self.__string[0:self.__index] + \
+                    self.__string[ind + 1: len(self.__string)]
+                ind += 1
+                try:
+                    vp = VariablesParser(newExp, self.__constants)
+                    vp.getVariables()
+                except VP_WrongExpression:
+                    pass
+                else:
+                    err = "Nieoczekiwany znak: '" + self.__string[self.__index: ind] + "'"
+                    raise VP_WrongExpression(err)
+            
+            
         return self.__variables
-    
     
     def __deleteWhitespaces(self):
         string = ""
@@ -46,10 +63,8 @@ class VariablesParser:
                 string += self.__string[i]
         self.__string = string 
 
-
     def __parse(self):
         return self.__parseAddition()
-    
     
     def __parseAddition(self):
         self.__parseMultiplication()
@@ -61,7 +76,6 @@ class VariablesParser:
             else:
                 break
     
-    
     def __parseMultiplication(self):
         self.__parsePowering()
         while True:
@@ -72,17 +86,15 @@ class VariablesParser:
             else:
                 break
             
-        
     def __parsePowering(self):
         self.__parseFunctions()
         char = self.__currentChar(1)
         if char == '^':
-            raise Exception("Zamiast x^y użyj pow(x, y)!!")
+            raise Exception("Zamiast x^y użyj pow(x, y)")
             self.__index += 1
             self.__parsePowering()
         else:
             pass
-    
     
     def __parseFunctions(self):
         char = 0
@@ -108,7 +120,7 @@ class VariablesParser:
         
         if char != 0:
             if not self.__parseBrackets(numOfArgs, char):
-                raise Exception("Parametry funkcji " + char + " w nawiasy!!")
+                raise Exception("Parametry funkcji " + char + " w nawiasy")
         else:
             self.__parseBrackets(1, None)
         
@@ -120,10 +132,10 @@ class VariablesParser:
                 self.__parseAddition()
                 if i < numOfArgs - 1:
                     if self.__currentChar(1) != ',':
-                        raise Exception("Za mało argumenów w funkcji " + functionName + "!!")
+                        raise Exception("Za mało argumenów w funkcji '" + functionName + "'")
                     self.__index += 1
             if self.__currentChar(1) != ')':
-                raise Exception("Nie znaleziono zamykającego nawiasu!!")
+                raise Exception("Nie znaleziono zamykającego nawiasu")
             self.__index += 1
             return True
         else:
@@ -157,7 +169,7 @@ class VariablesParser:
                 value += char
             elif char == '.':
                 if decimal_found:
-                    raise Exception("Za dużo kropek!!")
+                    raise Exception("Za dużo kropek")
                 decimal_found = True
                 value += '.'
             else:
@@ -166,11 +178,10 @@ class VariablesParser:
         
         if len(value) == 0:
             if char == '':
-                raise Exception("Nieoczekiwane zakończenie wzoru!!")
+                raise Exception("Nieoczekiwane zakończenie wzoru")
             else:
                 #to jest raczej wykluczone przez __parseValue() ...
                 raise Exception("There should be a number")
-
 
     def __parseVariable(self):
         var = ''
@@ -185,9 +196,7 @@ class VariablesParser:
         value = self.__constants.get(var, None)
         if value == None and var not in self.__variables:  
             self.__variables.append(var)
-            self.__wrongExp = var
             
-        
     def __currentChar(self, charsNo):
         return self.__string[self.__index: self.__index + charsNo]
     
