@@ -21,17 +21,16 @@ class PlotWidget(QWidget):
         self._cbar = None
 
     def plotData(self, variables, function, lowBounds, upBounds, minMaxValues, trace):
-        assert len(variables) == 2
-        assert len(minMaxValues) == 2
-        x1T, x2T = self.__makeTraceVectors(trace, variables)
-        try:
-            x1 = np.linspace(lowBounds[0], upBounds[0], 100)
-            x2 = np.linspace(lowBounds[1], upBounds[1], 100)
-        except ZeroDivisionError as e:
-            print(e)
-            return
-        X1, X2, Z = self.__makeContourVectors(function, x1, x2)
-        self.__makePlot(X1, X2, Z, minMaxValues, variables, x1T, x2T)
+        if len(variables) == 2 and len(minMaxValues) == 2:
+            x1T, x2T = self.__makeTraceVectors(trace, variables)
+            try:
+                x1 = np.linspace(lowBounds[0], upBounds[0], 100)
+                x2 = np.linspace(lowBounds[1], upBounds[1], 100)
+            except ZeroDivisionError as e:
+                print(e)
+                return
+            X1, X2, Z = self.__makeContourVectors(function, x1, x2)
+            self.__makePlot(X1, X2, Z, minMaxValues, variables, x1T, x2T)
 
     def __makeContourVectors(self, function, x1, x2):
         Z = []
