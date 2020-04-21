@@ -20,6 +20,7 @@ class MainWindow(Ui_MainWin):
         super().setupUi(mainWindow)
         self.functionBox.setPlaceholderText("np. pow(x1,2)+log(xyx, e)")
         self.__connectSlots()
+        self.nextButton.setDisabled(True)
 
     def __makePlot(self):
         self.plotWidget.plotData(self.ihs._variables, self.ihs._objective_function,
