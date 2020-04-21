@@ -57,10 +57,15 @@ class MainWindow(Ui_MainWin):
             self.__minMaxBandwidthValues = bandwidthDialog.getMinMaxValues()
             for i in range(len(self.ihs.getVariables())):
                 self.ihs.setBounds(i, self.__minMaxBandwidthValues[i][0], self.__minMaxBandwidthValues[i][1])
-            self.ihs.doYourTask()
-            self.__printSolution()
-            self.__trace = self.ihs.getTrace()
-            self.__makePlot()
+            try:
+                self.ihs.doYourTask()
+                self.__printSolution()
+                self.__trace = self.ihs.getTrace()
+                self.__makePlot()
+            except ZeroDivisionError:
+                self.label_function_error.setStyleSheet("QLabel { color : red; }")
+                self.nextButton.setDisabled(True)
+                self.label_function_error.setText(QtCore.QCoreApplication.translate("MainWin", 'Nie można dzielić przez 0'))
 
     def __disableButtonAndShowMessage(self):
         self.nextButton.setDisabled(True)

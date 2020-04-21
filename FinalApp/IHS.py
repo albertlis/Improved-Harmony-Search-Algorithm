@@ -50,8 +50,8 @@ class IHSAlgorithm:
             try:
                 self._f[i] = self.compute(self, X)
             except ZeroDivisionError or RuntimeWarning:
-                print('i caughed ZeroDiv in IHS.initializeHM')
-                catchZeroDivision(i)
+                print("Nie wolno '/0' - Nununu")
+                raise
                 
         self._f = np.empty(self._HMS)
         for i in range(self._HMS):

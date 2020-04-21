@@ -21,3 +21,7 @@ Dodałem try except ale trzeba się zastanowić co z tym zrobić
 7. Wykresy są obrócone x2 jest na dole x1 u góry
 
 Naprawiłem 4,5 ale coś tam jest powalone bo się indeksy nie zgadzają, więc nadal wiersja robocza
+
+Tam numpy gdzies wyrzyca warning przy dzieleniu przez 0, ale to tylko komunikat z ktorym mozna zyc
+,ale dla pewnosci sprawdz, czy to nie jest ta rzecz, przez którą ci te indeksy nie pasuja, bo
+numpy moze poprostu je pomijac ;) dzieje sie to w plotwidget.py->__makecontourvector
