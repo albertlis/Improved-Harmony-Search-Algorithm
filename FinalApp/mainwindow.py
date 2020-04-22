@@ -15,6 +15,7 @@ class MainWindow(Ui_MainWin):
         super(MainWindow, self).__init__()
         self.boxesValueOffset = 0.000001
         self.__minMaxBandwidthValues = (0, 0)
+        self.__functionErrorCode = 1
 
     def setupUi(self, mainWindow):
         super().setupUi(mainWindow)
@@ -63,7 +64,7 @@ class MainWindow(Ui_MainWin):
                 self.__trace = self.ihs.getTrace()
                 self.__makePlot()
             except ZeroDivisionError:
-                self.label_function_error.setStyleSheet("QLabel { color : red; }")
+                self.__functionErrorCode = 2  
                 self.nextButton.setDisabled(True)
                 self.label_function_error.setText(QtCore.QCoreApplication.translate("MainWin", 'Nie można dzielić przez 0'))
 
@@ -75,65 +76,50 @@ class MainWindow(Ui_MainWin):
         self.nextButton.setDisabled(False)
         self.statusbar.clearMessage()
 
-    def __hcmrMaxValueChanged(self):
-        if self.hcmrMaxBox.value() <= self.hcmrMinBox.value() + self.boxesValueOffset:
+    def __checkIfDataIsCorrect(self):
+        if self.hmcrIsOk() and self.parIsOk() and self.bwIsOk() \
+        and self.__functionErrorCode == 0:
+            self.nextButton.setEnabled(True)
+            
+        if not self.hmcrIsOk() or not self.parIsOk() or not self.bwIsOk():
             self.__disableButtonAndShowMessage()
         else:
-            self.__enableButtonAndClearMessage()
+            self.statusbar.clearMessage()
+        
+        if self.__functionErrorCode == 0:
+            self.label_function_error.setStyleSheet("QLabel { color : white; }")
+        elif self.__functionErrorCode == 1:
+            self.nextButton.setDisabled(True)
+            self.label_function_error.setStyleSheet("QLabel { color : orange; }")
+        elif self.__functionErrorCode == 2:
+            self.nextButton.setDisabled(True)
+            self.label_function_error.setStyleSheet("QLabel { color : red; }")
+        
+    def hmcrIsOk(self):
+        return self.hcmrMaxBox.value() > self.hcmrMinBox.value() + self.boxesValueOffset
 
-    def __hcmrMinValueChanged(self):
-        if self.hcmrMaxBox.value() <= self.hcmrMinBox.value() + self.boxesValueOffset:
-            self.__disableButtonAndShowMessage()
-        else:
-            self.__enableButtonAndClearMessage()
+    def parIsOk(self):
+        return self.parMaxBox.value() > self.parMinBox.value() + self.boxesValueOffset
 
-    def __parMinValueChanged(self):
-        if self.parMaxBox.value() <= self.parMinBox.value() + self.boxesValueOffset:
-            self.__disableButtonAndShowMessage()
-        else:
-            self.__enableButtonAndClearMessage()
-
-    def __parMaxValueChanged(self):
-        if self.parMaxBox.value() <= self.parMinBox.value() + self.boxesValueOffset:
-            self.__disableButtonAndShowMessage()
-        else:
-            self.__enableButtonAndClearMessage()
-
-    def __bwMinValueChanged(self):
-        if self.bwMaxBox.value() <= self.bwMinBox.value() + self.boxesValueOffset:
-            self.__disableButtonAndShowMessage()
-        else:
-            self.__enableButtonAndClearMessage()
-
-    def __bwMaxValueChanged(self):
-        if self.bwMaxBox.value() <= self.bwMinBox.value() + self.boxesValueOffset:
-            self.__disableButtonAndShowMessage()
-        else:
-            self.__enableButtonAndClearMessage()
+    def bwIsOk(self):
+        return self.bwMaxBox.value() > self.bwMinBox.value() + self.boxesValueOffset
 
     def __functionValueChanged(self):
         string, err = evaluateError(self.functionBox.text())
-        if err == 2:
-            self.label_function_error.setStyleSheet("QLabel { color : red; }")
-            self.nextButton.setDisabled(True)
-            string = string[0]
-        elif err == 0:
-            self.label_function_error.setStyleSheet("QLabel { color : white; }")
-            self.nextButton.setEnabled(True)
-        else:
-            self.label_function_error.setStyleSheet("QLabel { color : orange; }")
-            self.nextButton.setDisabled(True)
-
+        print(string)
+        print(err)
+        self.__functionErrorCode = err
         self.label_function_error.setText(QtCore.QCoreApplication.translate("MainWin", string))
+        self.__checkIfDataIsCorrect()
 
     def __connectSlots(self):
         self.nextButton.clicked.connect(self.__nextButtonClicked)
-        self.hcmrMaxBox.valueChanged.connect(self.__hcmrMaxValueChanged)
-        self.hcmrMinBox.valueChanged.connect(self.__hcmrMinValueChanged)
-        self.parMaxBox.valueChanged.connect(self.__parMaxValueChanged)
-        self.parMinBox.valueChanged.connect(self.__parMinValueChanged)
-        self.bwMaxBox.valueChanged.connect(self.__bwMaxValueChanged)
-        self.bwMinBox.valueChanged.connect(self.__bwMinValueChanged)
+        self.hcmrMaxBox.valueChanged.connect(self.__checkIfDataIsCorrect)
+        self.hcmrMinBox.valueChanged.connect(self.__checkIfDataIsCorrect)
+        self.parMaxBox.valueChanged.connect(self.__checkIfDataIsCorrect)
+        self.parMinBox.valueChanged.connect(self.__checkIfDataIsCorrect)
+        self.bwMaxBox.valueChanged.connect(self.__checkIfDataIsCorrect)
+        self.bwMinBox.valueChanged.connect(self.__checkIfDataIsCorrect)
         self.functionBox.textChanged.connect(self.__functionValueChanged)
         self.predefinedFunctionButton.clicked.connect(self.__openFunctionChooseDialog)
 

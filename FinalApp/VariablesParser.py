@@ -221,5 +221,5 @@ def evaluateError(expression, constants={}):
             if outStr != '': outputStr, code =  'Wykryte zmienne: ' + outStr, 0
             else: outputStr, code = 'Brak zmiennych', 1
         except Exception as ex:
-            outputStr, code = ex.args, 2
+            outputStr, code = ex.args[0] , 2
     return outputStr, code

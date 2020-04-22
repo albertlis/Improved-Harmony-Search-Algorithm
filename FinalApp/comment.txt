@@ -10,7 +10,3 @@ o co chodziło). Na razie przeniosłem ale nie usuwaj komentów.
 
 Error List:
 1. Da się przejść dalej bez funkcji
-
-Tam numpy gdzies wyrzyca warning przy dzieleniu przez 0, ale to tylko komunikat z ktorym mozna zyc
-,ale dla pewnosci sprawdz, czy to nie jest ta rzecz, przez którą ci te indeksy nie pasuja, bo
-numpy moze poprostu je pomijac ;) dzieje sie to w plotwidget.py->__makecontourvector
