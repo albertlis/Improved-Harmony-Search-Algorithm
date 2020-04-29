@@ -29,36 +29,49 @@ class PlotWidget(QWidget):
             except ZeroDivisionError as e:
                 # print(e)
                 return
-            X1, X2, Z = self.__makeContourVectors(function, x1, x2)
-            self.__makePlot(X1, X2, Z, minMaxValues, variables, x1T, x2T)
+            X1, X2, Z, min, max = self.__makeContourVectors(function, x1, x2)
+            self.__makePlot(Z, minMaxValues, variables, x1T, x2T, min, max)
 
     def __makeContourVectors(self, function, x1, x2):
         Z = []
-        X1, X2 = np.meshgrid(x2, x1)
+        X1, X2 = np.meshgrid(x1, x2)
+        min = 10000000
+        max = -10000000
         for i in range(100):
             Z.append([])
             for j in range(100):
-                Z[i].append(function(x1[i], x2[j]))
-        return X1, X2, Z
+                val = function(x1[i], x2[j])
+                if val < min:
+                    min = val
+                if val > max:
+                    max = val
+                Z[i].append(val)
+        return X1, X2, Z, min, max
 
-    def __makePlot(self, X1, X2, Z, minMaxValues, variables, x1T, x2T):
+    def __makePlot(self, Z, minMaxValues, variables, x1T, x2T, min, max):
         self.canvas.axes.clear()
         im = self.canvas.axes.imshow(Z, interpolation='bilinear', origin='lower',
-                                     extent=(minMaxValues[1][0], minMaxValues[1][1],
-                                             minMaxValues[0][0], minMaxValues[0][1]),
+                                     extent=(minMaxValues[0][0], minMaxValues[0][1],
+                                             minMaxValues[1][0], minMaxValues[1][1]),
                                      aspect='auto')
         im.set_alpha(0.5)
-        CS = self.canvas.axes.contour(X1, X2, Z, origin='lower', )
+        levels1 = np.linspace(min, max/20., num=5)
+        levels2 = np.linspace(max/20., max, num=15)
+        levels = np.concatenate((levels1, levels2[1:]))
+        levels = np.sort(levels)
+        CS = self.canvas.axes.contour(Z, levels, origin='lower', linewidths=1,
+                                      extent=(minMaxValues[0][0], minMaxValues[0][1],
+                                              minMaxValues[1][0], minMaxValues[1][1]))
         self.canvas.axes.clabel(CS, inline=1, fontsize=10)
         if self._cbar is None:
             self._cbar = self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.95)
         else:
             self._cbar.remove()
             self._cbar = self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.95)
-        self.canvas.axes.plot(x2T, x1T, marker=".", c="k")
+        self.canvas.axes.plot(x1T, x2T, marker=".", c="k")
         self.canvas.axes.grid(True)
-        self.canvas.axes.set_xlabel(variables[1])
-        self.canvas.axes.set_ylabel(variables[0])
+        self.canvas.axes.set_xlabel(variables[0])
+        self.canvas.axes.set_ylabel(variables[1])
         self.canvas.figure.tight_layout()
         self.canvas.draw()
 
