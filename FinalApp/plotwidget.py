@@ -53,8 +53,9 @@ class PlotWidget(QWidget):
                                              minMaxValues[0][0], minMaxValues[0][1]),
                                      aspect='auto')
         im.set_alpha(0.5)
-        levels1 = np.linspace(min, max/20., num=5)
-        levels2 = np.linspace(max/20., max, num=15)
+        levels1 = np.linspace(min, max/1000., num=10)
+        levels2 = np.linspace(max/1000., max/2, num=15)
+        levels2 = np.append(levels2, max)
         levels = np.concatenate((levels1, levels2[1:]))
         levels = np.sort(levels)
         CS = self.canvas.axes.contour(Z, levels, origin='lower', linewidths=1,
@@ -66,7 +67,7 @@ class PlotWidget(QWidget):
         else:
             self._cbar.remove()
             self._cbar = self.canvas.figure.colorbar(im, orientation='vertical', shrink=0.95)
-        self.canvas.axes.plot(x1T, x2T, marker=".", c="k")
+        self.canvas.axes.plot(x2T, x1T, marker=".", c="k")
         self.canvas.axes.grid(True)
         self.canvas.axes.set_xlabel(variables[1])
         self.canvas.axes.set_ylabel(variables[0])

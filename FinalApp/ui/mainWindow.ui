@@ -337,7 +337,7 @@
              </size>
             </property>
             <property name="decimals">
-             <number>5</number>
+             <number>6</number>
             </property>
             <property name="maximum">
              <double>99999.000000000000000</double>
@@ -370,7 +370,7 @@
              </size>
             </property>
             <property name="decimals">
-             <number>5</number>
+             <number>6</number>
             </property>
             <property name="maximum">
              <double>99999.000000000000000</double>
