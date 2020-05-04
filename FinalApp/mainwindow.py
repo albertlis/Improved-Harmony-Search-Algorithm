@@ -126,6 +126,8 @@ class MainWindow(Ui_MainWin):
     def __printSolution(self):
         self.solutionBox.clear()
         functionValue, variables = self.ihs.getOptimalSolution()
+        lastBestSolutionIteration = self.ihs.getLastBestSolutionIteration()
         self.solutionBox.append(f'Wartość:\t{functionValue}')
         for var in variables:
             self.solutionBox.append(var)
+        self.solutionBox.append(f'\n\nZnaleziono po: {lastBestSolutionIteration} iteracjach')

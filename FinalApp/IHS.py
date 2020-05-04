@@ -40,6 +40,7 @@ class IHSAlgorithm:
         self._objective_function = lambda X: sum(X)
         self.compute = lambda X: self._objective_function(X)
         self._trace = []
+        self._lastBestSolutionIteration = 0
                 
     def initializeHM(self):
         def catchZeroDivision(i):
@@ -106,6 +107,7 @@ class IHSAlgorithm:
         variables = self._HM[index]
         if variables not in self._trace:
             self._trace.append(variables)
+            self._lastBestSolutionIteration = self._generation
 
     def doYourTask(self):
         def catchZeroDivision():
@@ -152,3 +154,6 @@ class IHSAlgorithm:
 
     def getTrace(self):
         return self._trace
+
+    def getLastBestSolutionIteration(self):
+        return self._lastBestSolutionIteration
