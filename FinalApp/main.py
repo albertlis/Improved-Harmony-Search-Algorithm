@@ -15,4 +15,3 @@ ui = MainWindow()
 ui.setupUi(mainWindow)
 mainWindow.show()
 sys.exit(app.exec_())
-
