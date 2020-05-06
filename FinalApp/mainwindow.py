@@ -67,6 +67,8 @@ class MainWindow(Ui_MainWin):
                 self.__functionErrorCode = 2  
                 self.nextButton.setDisabled(True)
                 self.label_function_error.setText(QtCore.QCoreApplication.translate("MainWin", 'Nie można dzielić przez 0'))
+                self.nextButton.setDisabled(True)
+                self.label_function_error.setStyleSheet("QLabel { color : red; }")
 
     def __disableButtonAndShowMessage(self):
         self.nextButton.setDisabled(True)
