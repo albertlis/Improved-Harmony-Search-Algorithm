@@ -24,8 +24,8 @@ class PlotWidget(QWidget):
         if len(variables) == 2 and len(minMaxValues) == 2:
             x1T, x2T = self.__makeTraceVectors(trace, variables)
             try:
-                x1 = np.linspace(lowBounds[0], upBounds[0], 100)
-                x2 = np.linspace(lowBounds[1], upBounds[1], 100)
+                x1 = np.linspace(lowBounds[0], upBounds[0], 200)
+                x2 = np.linspace(lowBounds[1], upBounds[1], 200)
             except ZeroDivisionError as e:
                 # print(e)
                 return
@@ -33,11 +33,13 @@ class PlotWidget(QWidget):
             self.__makePlot(Z, minMaxValues, variables, x1T, x2T, min, max)
 
     def __makeContourVectors(self, function, x1, x2):
-        Z = np.empty(shape=(100, 100))
+        x1Len = len(x1)
+        x2Len = len(x2)
+        Z = np.empty(shape=(x1Len, x2Len))
         min = 10000000
         max = -10000000
-        for i in range(100):
-            for j in range(100):
+        for i in range(x1Len):
+            for j in range(x2Len):
                 val = function(x1[i], x2[j])
                 Z[i][j] = val
                 if val < min:
