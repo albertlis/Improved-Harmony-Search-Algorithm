@@ -1,5 +1,7 @@
-# Ameliorated Harmony Search Alghoritm
+# Improved Harmony Search Alghoritm
 
-### Technologie: Python(PyQt5, Matplotlib, NumPy)
+### Technologies: Python(PyQt5, Matplotlib, NumPy)
+
+Desktop aplication for optimizing non-linear functions using metaheuristic Improved Harmony Search Alghoritm.
 
 [Youtube](https://youtu.be/MrhDSeQRDA8)
