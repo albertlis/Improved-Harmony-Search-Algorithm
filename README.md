@@ -12,6 +12,7 @@
 * [Development](#development) 
 * [Status](#status)
 * [Contact](#contact)
+* [Contributors](#contributors)
 
 ## General info
 This program was created as academic project in the Theory and Methodologies of Optimization subject. 
@@ -78,5 +79,5 @@ Project is: _finished_
 ## Contact
 albert.lis.1996@gmail.com - feel free to contact me!
 
-## Constributors
+## Contributors
 [Albert Lis](https://github.com/albertlis) [Adrian Czupak](https://github.com/CzupakAdrian)
