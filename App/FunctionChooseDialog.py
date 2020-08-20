@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QDialog
-
 from ui.functionChooseDialog import Ui_dialog
-
+from resource_path import resource_path
 
 class FunctionChooseDialog(Ui_dialog, QDialog):
     def __init__(self):
@@ -14,7 +13,7 @@ class FunctionChooseDialog(Ui_dialog, QDialog):
 
     def __readFunctionsFromFile(self):
         try:
-            file = open("functions.txt", 'r')
+            file = open(resource_path("functions.txt"), 'r')
         except OSError as e:
             print(e)
             return None

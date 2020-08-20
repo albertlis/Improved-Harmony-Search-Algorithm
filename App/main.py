@@ -1,14 +1,15 @@
 #!/usr/bin/python3
 from sys import path
 from PyQt5 import QtWidgets
+from resource_path import resource_path
+from mainwindow import MainWindow
 import sys
 
-from mainwindow import MainWindow
 
 path.append('/ui')
 
 app = QtWidgets.QApplication(sys.argv)
-with open("style.css", "r") as style:
+with open(resource_path("style.css"), "r") as style:
     app.setStyleSheet(style.read())
 mainWindow = QtWidgets.QMainWindow()
 ui = MainWindow()
